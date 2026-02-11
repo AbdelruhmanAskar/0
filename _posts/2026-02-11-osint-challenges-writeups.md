@@ -60,7 +60,7 @@ The challenge description provided a narrative clue:
 
 **Mapping the Area:** By checking satellite imagery and maps around the **Facultat de Dret**, I noticed a large green space directly adjacent to the university grounds: **Jardins de Pedralbes** (the gardens of the Royal Palace of Pedralbes).
 
-![Fountain](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/A%20Royal%20Neighbor/fountain.png)
+![Fountain](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/A%20Royal%20Neighbor/Fountain.png)
 
 * * *
 
