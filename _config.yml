@@ -1,7 +1,7 @@
 title: "0xaskar"
 email: "askr10.askr@gmail.com"
 description: "Penetration Tester | CTF Player | Cybersecurity enthusiast with a strong interest in web security and ethical hacking <3."
-url: "https://0xaskar.github.io"
+url: "https://0"
 baseurl: ""
 site_favicon: "https://github.com/AbdelruhmanAskar.png"
 github_username: "AbdelruhmanAskar"
@@ -10,7 +10,7 @@ search: true
 
 markdown: kramdown
 remote_theme: "mmistakes/minimal-mistakes@4.27.3"
-repository: "AbdelruhmanAskar/0xaskar.github.io"
+repository: "AbdelruhmanAskar/0"
 
 permalink: /:categories/:title/
 paginate: 5 
