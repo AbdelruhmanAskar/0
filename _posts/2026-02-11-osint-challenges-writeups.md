@@ -224,7 +224,7 @@ Inside the archive, I found two files:
     
 2.  `0xaskar_was_here_you_are_late.jpg` (A photo of the suspect).
 
-![Suspect Photo](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/Opeartion%20Ghost%20in%20the%20Cage/0xaskar_was_here_you_are_late.png)
+![Suspect Photo](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/Opeartion%20Ghost%20in%20the%20Cage/0xaskar_was_here_you_are_late.jpg)
     
 
 **The Final Clue:** The text file contained a taunt:
