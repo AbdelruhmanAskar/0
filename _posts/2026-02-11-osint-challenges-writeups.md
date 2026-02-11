@@ -24,7 +24,7 @@ I created an OSINT challenge called **"A Weird Combo"**. It was a fun experience
 > I saved their phone number from the Google Maps. Can you find it?"
 
 **The Original Challenge Photo:**
-![Original Challenge Photo](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/Original%20Challenge%20Photo.jpg)
+![Original Challenge Photo](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/A%20Weird%20Combo%20WriteUp/Original%20Challenge%20Photo.jpg)
 
 **Flag Format:** `N!ghtM4re{Restaurant Phone Number}`
 
@@ -34,7 +34,7 @@ I created an OSINT challenge called **"A Weird Combo"**. It was a fun experience
 
 First, I had a photo of a metro station. I used **Google Reverse Image Search** and added the keyword "Metro" to help the search engine.
 
-![Reverse Search Result](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/reverse-image.png)
+![Reverse Search Result](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/A%20Weird%20Combo%20WriteUp/reverse-image.png)
 
 The search confirmed that the starting point is **Kolleyet El-Zeraa Station** (Faculty of Agriculture). 
 
@@ -48,7 +48,7 @@ I checked the official [Cairo Metro website](https://www.cairometro.gov.eg/ar/st
 1. **Shobra El-Kheima Station**
 2. **Mazallat Station**
 
-![Metro Map](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/paths.png)
+![Metro Map](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/A%20Weird%20Combo%20WriteUp/paths.png)
 
 ---
 
@@ -69,13 +69,13 @@ The description mentioned a restaurant right outside the exit with a very strang
 
 I went to **Google Maps**, searched near Mazallat Station, and looked for restaurants.
 
-![Google Maps Search](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/google-map.png)
+![Google Maps Search](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/A%20Weird%20Combo%20WriteUp/google-map.png)
 
 I found it: **"Kebda w Mokh w Crepe El-Iman Asran" (كبدة ومخ وكريب الايمان عصران)**. The name is definitely a "mouthful"!
 
 I checked the **"About"** section on Google Maps to find the phone number.
 
-![Restaurant Phone Number](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/resturant.png)
+![Restaurant Phone Number](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/A%20Weird%20Combo%20WriteUp/resturant.png)
 
 ---
 
