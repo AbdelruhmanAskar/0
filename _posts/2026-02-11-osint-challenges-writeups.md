@@ -23,6 +23,9 @@ I created an OSINT challenge called **"A Weird Combo"**. It was a fun experience
 > 
 > I saved their phone number from the Google Maps. Can you find it?"
 
+**The Original Challenge Photo:**
+![Original Challenge Photo](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/Original%20Challenge%20Photo.jpg)
+
 **Flag Format:** `N!ghtM4re{Restaurant Phone Number}`
 
 ---
