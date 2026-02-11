@@ -15,7 +15,7 @@ This post is a special milestone in my journey. For the first time, I stepped aw
 
 Designing these challenges was an incredible experience—moving from solving puzzles to crafting them requires a different perspective. I wanted to create scenarios that feel real, blending deep-web investigation with real-world criminal profiling. I’m thrilled with the feedback from the participants and seeing the creative ways they approached my challenges.
 
-Below are the writeups for the 4 OSINT challenges I designed, ordered from **Easy to Hard**.
+Below are the writeups for the 3 OSINT challenges I designed, ordered from **Easy to Hard**.
 
 ---
 
