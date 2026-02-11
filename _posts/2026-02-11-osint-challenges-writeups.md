@@ -19,6 +19,69 @@ Below are the writeups for the 4 OSINT challenges I designed, ordered from **Eas
 
 ---
 
+## 1. The Royal Neighbor (Easy)
+
+## **📝 The Challenge Description**
+
+> "I was wandering around this academic building when I decided to take a break. Just a few steps away, I entered a nearby garden and stumbled upon a fountain featuring a dragon's head. It looked quite familiar, almost like it was designed by a legendary architect who shaped the whole city.
+> 
+> I took a photo of the faculty building before I left. Can you find the name of that hidden dragon fountain?"
+> 
+> **Flag Format:** `N!ghtM4re{Name_of_the_fountain}`
+> 
+> **Note on Flag Sensitivity:** Accuracy is key! The name of the fountain must be written with the correct Catalan accents and specific casing. Note the difference between a standard **"e"** and the accented **"é"**.
+> 
+> **How to format the name:** To help you format the name correctly, here are two examples using different names to show how special characters, casing, and accents work:
+> 
+> *   **Example 1 (Apostrophe & Casing):** If the answer was _Joan d'Alacant_, the flag would be: `N!ghtM4re{Joan_d'Alacant}` (Note the small `d` and capital `A`).
+> *   **Example 2 (Accents):** If the answer was _Castell de Mercè_, the flag would be: `N!ghtM4re{Castell_de_Mercè}` (Note the `è` instead of `e`).
+
+![Challenge Photo](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/A%20Royal%20Neighbor/Place.png)
+
+* * *
+
+### 🔍 Phase 1: Visual Identification
+
+The investigation began with the challenge photo of a modern, academic-looking building.
+
+**Analysis:** I performed a **Reverse Image Search** (using Google Lens/Yandex) on the faculty building photo.
+
+![Facility](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/A%20Royal%20Neighbor/Facility.png)
+
+**The Breakthrough:** The search results immediately identified the building as the **Facultat de Dret (Faculty of Law)** at the **University of Barcelona (UB)** in Barcelona, Spain. The unique architectural lines and the specific mural on the building are iconic to this campus located on _Avinguda Diagonal_.
+
+* * *
+
+### 🌳 Phase 2: Locating the "Royal" Break Spot
+
+The challenge description provided a narrative clue:
+
+> _"Just a few steps away, I entered a nearby garden and stumbled upon a fountain featuring a dragon's head."_
+
+**Mapping the Area:** By checking satellite imagery and maps around the **Facultat de Dret**, I noticed a large green space directly adjacent to the university grounds: **Jardins de Pedralbes** (the gardens of the Royal Palace of Pedralbes).
+
+![Fountain](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/A%20Royal%20Neighbor/fountain.png)
+
+* * *
+
+### 🐉 Phase 3: The Legendary Architect's Work
+
+The description mentioned a fountain with a **dragon's head** designed by a **legendary architect** who "shaped the whole city."
+
+**Investigation:**
+
+1.  Barcelona's most legendary architect is undoubtedly **Antoni Gaudí**.
+2.  I searched for "dragon fountain"
+3.  I discovered the **Font d'Hèrcules** (Hercules Fountain).
+
+**Historical Context:** This fountain features a wrought-iron dragon’s head as a spout. Interestingly, it was overlooked for years and "hidden" by overgrown vegetation until it was restored and rediscovered in the 1980s, matching the challenge's lore perfectly.
+
+* * *
+
+**Final Flag:**`N!ghtM4re{Font_d'Hércules}`
+
+==============================================
+
 ## 2. A Weird Challenge (Medium)
 
 ## 📝 The Challenge Description
