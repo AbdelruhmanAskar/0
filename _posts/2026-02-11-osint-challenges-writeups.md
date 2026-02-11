@@ -1,19 +1,26 @@
 ---
 layout: single
-title: "OSINT Write-up: A Weird Combo"
-excerpt: "My first time as an OSINT author at N!ghtM4re CTF! Let's solve this 'Weird Combo' together."
+title: "N!ghtM4re CTF 2026: OSINT Challenges Writeups"
 date: 2026-02-10
-categories: [OSINT]
+categories: [Writeups, OSINT]
+tags: [CTF, OSINT, Investigation, CyberCrime, Author]
 author_profile: true
 ---
 
 # 🕵️‍♂️ OSINT Challenge: A Weird Combo
 
-Hello everyone! I am super excited to share that I was an **Author** for the first time in the **N!ghtM4re CTF**! 🥳 
+Hello everyone! 
 
-I created an OSINT challenge called **"A Weird Combo"**. It was a fun experience blending real-world locations with a bit of a riddle. Let's see how to solve it step-by-step!
+This post is a special milestone in my journey. For the first time, I stepped away from the player's seat and took on the role of an **OSINT Challenge Author** for **N!ghtM4re CTF**🥳🥳.
+
+Designing these challenges was an incredible experience—moving from solving puzzles to crafting them requires a different perspective. I wanted to create scenarios that feel real, blending deep-web investigation with real-world criminal profiling. I’m thrilled with the feedback from the participants and seeing the creative ways they approached my challenges.
+
+Below are the writeups for the 4 OSINT challenges I designed, ordered from **Easy to Hard**.
 
 ---
+
+## 2. A Weird Challenge (Medium)
+=============================================
 
 ## 📝 The Challenge Description
 
@@ -87,11 +94,158 @@ The phone number listed is `01111132001`.
 
 ---
 
-## 🎓 Skills Learned
+Operation: Ghost in the Cage (Hard)
+=============================================
 
-* **Image Recognition:** Using Reverse Image Search to identify landmarks.
-* **Logic & Deduction:** Using a map and description hints to narrow down locations.
-* **Arabic Language Hints:** Understanding how "Mazallat" relates to "Rain protection."
-* **Google Maps OSINT:** Extracting specific data (phone numbers) from business listings.
+## 💀 The Challenge Description
 
-Thanks for playing my challenge! Stay tuned for more! 🚀
+In this "Hard" difficulty OSINT challenge, we are tasked with tracking down a high-ranking Russian cybercriminal on the FBI’s Cyber Most Wanted list. This individual is a specialist in "Carding"—the large-scale theft and sale of financial access devices and stolen identities.
+
+**Criminal Profile:**
+
+*   **Nationality:** Russian
+    
+*   **Specialization:** Managing a "Carding" enterprise and identity fraud.
+    
+*   **Status:** Fugitive. Known for hiding his true identity behind multiple layers of digital noise.
+    
+
+**Mission Objectives:**
+
+1.  **Identify the Alias.**
+    
+2.  **Locate the Evidence:** Track down his development history.
+    
+3.  **The Extraction:** Find the final flag hidden inside a backup project.
+    
+
+* * *
+
+### 🔍 Phase 1: Criminal Profiling & Reconnaissance
+
+The investigation began by analyzing the key indicators provided in the description: **"FBI’s Cyber Most Wanted list"**, **"Carding Shops"**, and **"Russian National"**.
+
+Using a targeted Google Dork, I filtered through the noise to find specific FBI indictments matching this profile:
+
+**Search Query:** `intext:"FBI's Cyber Most Wanted list" "Carding Shops" "Russian"`
+
+![Search Query](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/Opeartion%20Ghost%20in%20the%20Cage/Query.png)
+
+**The Breakthrough:** The results pointed to **Igor Dekhtyarchuk**. Reports from the Department of Justice (DoJ) identified him as the administrator of **"Marketplace A"**, a sophisticated underground carding shop.
+
+![Igor Dekhtyarchuk](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/Opeartion%20Ghost%20in%20the%20Cage/Guy.png)
+
+> **Investigator's Note:** Deep inside the indictment text was the golden lead: _"FBI investigators were able to track Dekhtyarchuk’s presence in the hacking community back to November 2013 when he joined hacker forums under the alias **'floraby'**."_
+
+**Target Alias Identified:** `floraby`.
+
+* * *
+
+### 🕵️ Phase 2: Digital Footprint Analysis (OSINT)
+
+With the alias `floraby`, it was time to map his digital footprint. I used **Sherlock** to scan for the username across social and technical platforms.
+
+**Command:** `sherlock floraby`
+
+![Sherlock Command](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/Opeartion%20Ghost%20in%20the%20Cage/All-Accounts.png)
+
+**The Results:** The scan yielded several hits, but the most relevant for a developer/criminal profile were:
+
+*   **GitHub:** `https://www.github.com/floraby`
+    
+*   **Telegram:** `https://t.me/floraby`
+    
+*   **Archive.org:** `https://archive.org/details/@floraby`
+
+![Archive](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/Opeartion%20Ghost%20in%20the%20Cage/Archive.png)
+    
+
+**Analyzing the GitHub Profile:** Navigating to his GitHub confirmed our target. The bio read:
+
+> _"Student at Ural State | Python & Java Enthusiast | Interested in Web Auth."_ _Location: Kamensk-Uralsky, Russia_
+
+This location and education history perfectly matched the FBI’s wanted poster for Dekhtyarchuk.
+
+![Github Profile](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/Opeartion%20Ghost%20in%20the%20Cage/Github-Profile.png)
+
+* * *
+
+### 💻 Phase 3: Source Code Audit
+
+Criminals often reuse code or leave "backdoors" for themselves. I audited his repositories and found **`Auth-Project-v1.0`**.
+
+Inside `auth_provider.py`, I discovered a suspicious hardcoded variable:
+
+Python
+
+    # Fallback gateway for encrypted communications
+    # Use hex decoder to reveal the secure endpoint
+    INTERNAL_GATEWAY = "68747470733a2f2f742e6d652f666c6f726162795f63616765" 
+
+![[Python Code](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/Opeartion%20Ghost%20in%20the%20Cage/Python-Code.png)
+
+**Decoding the Payload:** I took the hex string to **CyberChef**. Using the **"From Hex"** operation, it revealed a hidden Telegram link: `https://t.me/floraby_cage`
+
+![[CyberChef](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/Opeartion%20Ghost%20in%20the%20Cage/CyberChef.png)
+
+* * *
+
+### 📱 Phase 4: Infiltration & The Seizure
+
+The link led to a private Telegram channel named **floraby\_cage**. The channel was used to post marketplace inventory (Cookies, SSNs, and bank logs).
+
+![[Telegram Channel](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/Opeartion%20Ghost%20in%20the%20Cage/Channel.png)
+
+However, the author of the challenge, **0xaskar**, had already compromised the channel, leaving a "Seizure Notice" post:
+
+> **🚫 SEIZED BY 0xaskar** _"To the 'Ghost' running this channel: Your OpSec was good, but your history was better. I left a little souvenir in your backup file."_
+
+![[0xaskar Message](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/Opeartion%20Ghost%20in%20the%20Cage/Seized-by-0xaskar.png)
+
+**The Backup File:** The post contained a file: `Marketplace_A_Full_Backup.zip`. Upon trying to open it, I was prompted for a password.
+
+![[Unzip Folder](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/Opeartion%20Ghost%20in%20the%20Cage/Extract-Files.png)
+
+**The Password Hint:**
+
+> _🔒 Archive Password: The name of the place where I learned to code. (My Alma Mater in Kamensk). Format: NameState (Case Sensitive)_
+
+Referring back to the GitHub Bio from Phase 2, the university was **Ural State**.
+
+**Password:** `UralState`
+
+* * *
+
+### 🖼️ Phase 5: Forensics & Extraction
+
+Inside the archive, I found two files:
+
+1.  `READ_BEFORE_PANIC.txt`
+    
+2.  `0xaskar_was_here_you_are_late.jpg` (A photo of the suspect).
+
+![[Suspect Photo](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/Opeartion%20Ghost%20in%20the%20Cage/0xaskar_was_here_you_are_late.png)
+    
+
+**The Final Clue:** The text file contained a taunt:
+
+> _"Finding the cage doesn't mean you own the ghost. The question is: are you just looking at the 'Image', or are you smart enough to see the 'Data'?"_
+
+This directed me toward **Metadata analysis**. I used `exiftool` to inspect the image's hidden headers.
+
+**Command:** `exiftool 0xaskar_was_here_you_are_late.jpg`
+
+![[Exiftool Result](https://raw.githubusercontent.com/AbdelruhmanAskar/0xaskar.github.io/refs/heads/master/assets/images/Opeartion%20Ghost%20in%20the%20Cage/Exiftool.png)
+
+**The Result:** Inside the metadata tags, the flag was hidden within the **Artist** field:
+
+*   **Artist:** `N!ghtM4re{0xaskar_hunted_the_floraby_shadow}`
+    
+*   **Comment:** `0xaskar was here, floraby was there, and you... you are just reading the metadata <3`
+    
+
+* * *
+
+### 🚩 Final Flag
+
+**`N!ghtM4re{0xaskar_hunted_the_floraby_shadow}`**
