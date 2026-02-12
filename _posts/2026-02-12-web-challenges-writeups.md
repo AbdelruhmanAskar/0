@@ -1,21 +1,21 @@
 ---
 layout: single
-title: "N!ghtM4re CTF 2026: WEB Challenges Writeups"
+title: "N!ghtM4re CTF 2026: Web Challenges Writeups"
 date: 2026-02-12
 categories: [Writeups, WEB]
 tags: [CTF, WEB , Author]
 author_profile: true
 ---
 
-# 🕸️ WEB Series: The Author's Writeups
+# 🕸️ Web Writeups
 
 Hello everyone!
 
-This post marks a new chapter in my journey. After dominating the OSINT field,
-I decided to dive deep into the Web Exploitation realm—but this time, as the Architect.
+Hello everyone! I’m really excited to share this post with you all. This time, things are a bit different! For the first time ever, I’ve stepped into the shoes of a Web Challenge Author for N!ghtM4re CTF 2026 🥳🥳.
 
-For N!ghtM4re CTF, I stepped into the role of a Challenge Author to design environments that test not just your tools,
-but your fundamental understanding of how the web breathes 🥳🥳
+It’s been an incredible experience moving from the "solver" side to the "architect" side. Designing these challenges was a lot of fun—thinking about how to hide the flags and creating tricky paths for the players really opened my eyes to how the web works from the inside out. I'm honestly so happy with how they turned out and seeing everyone's creative solutions was the best part of the journey.
+
+In this post, I’ll be breaking down web challenges, ranging from Basic to Hard. Whether you're a beginner or a pro, I hope you find these writeups helpful and enjoy the logic behind them!
 
 ---
 
@@ -50,13 +50,13 @@ Upon landing on the challenge page, I was greeted by a standard **Login** interf
 
 But a true researcher knows that the best secrets are often hidden in plain sight.
 
-I performed an **`Inspect Element`** to dive into the source code. Nestled within the comments, I found a developer's note left behind: \`\`
-
-**Bingo.** The first piece of the puzzle:
-
-*   **Target Username:** `@dmindex021`
+I performed an **`Inspect Element`** to dive into the source code. Nestled within the comments, I found a developer's note left behind.
 
 ![Inspect](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Bl1nd%20Fa1th/Inspect.png)
+
+The first piece of the puzzle:
+
+*   **Target Username:** `@dmindex021`
 
 * * *
 
