@@ -217,6 +217,7 @@ I took the cookie to `jwt.io` to inspect its structure. The payload revealed two
 
 The presence of an is_admin flag set to false immediately suggested that privilege escalation was the intended goal.
 
+* * *
 🔨 Stage 3: Breaking the Seal (Brute-forcing Secret Key)
 
 Since the session was a signed Flask cookie, I couldn't just modify the is_admin flag without the Secret Key. I decided to attempt a brute-force attack on the signing key using flask-unsign and the rockyou.txt wordlist.
@@ -229,6 +230,7 @@ flask-unsign --unsign --cookie 'eyJpc...[snip]...' --wordlist 'rockyou.txt'`
 
 The tool successfully cracked the key: Secret Key: `chocolate`
 
+* * *
 🎭 Stage 4: The Masquerade (Session Hijacking)
 
 With the secret key in hand, I could now forge my own session cookie. I used flask-unsign again to sign a new cookie where is_admin was set to True.
@@ -241,6 +243,7 @@ bash
 
 I replaced my original session cookie with this newly forged one in the browser's developer tools.
 
+* * *
 🏆 Stage 5: Capturing the Flag
 
 After updating the cookie, I navigated to the /flag endpoint. The server, now convinced that I was the administrator, granted me access to the hidden treasure.
