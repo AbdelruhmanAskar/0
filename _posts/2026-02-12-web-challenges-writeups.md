@@ -139,7 +139,7 @@ The standard `POST` method was disabled for resetting, but the server was still 
 ### 🔓 Stage 3: The HEAD Trick (Exploitation)
 A **HEAD** request is identical to a `GET` request, but the server returns only the headers and no body. Sometimes, developers forget to apply the same security restrictions to `HEAD` as they do to `POST` or `GET`.
 
-I decided to bypass the restriction using **cURL** to force a `HEAD` request to the reset endpoint:
+I decided to bypass the restriction using **Curl** to force a `HEAD` request to the reset endpoint:
 
 curl -X HEAD [http://nightmare.offgrayeg.com](http://nightmare.offgrayeg.com):7878/reset
 
