@@ -157,3 +157,80 @@ curl [http://nightmare.offgrayeg.com](http://nightmare.offgrayeg.com):7878/flag
 ![Flag](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Soda3/Flag.png)
 
 The Flag: N!ghtM4re{H34D_Req_Ar3_N0t_Alw4ys_S4f3!!}
+
+---
+
+## 🚩 3. Challenge Write-up: 7ru57 155u35
+=========================================
+### 🛠️ General Information
+
+*   **Challenge Name:** 7ru57 155u35
+    
+*   **Difficulty:** Medium
+        
+*   **Author:** [D3xter](https://www.linkedin.com/in/ahmed-gamal-ag113?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)
+        
+* * *
+### 📜 The Description
+
+> _"A quiet system. A simple workflow. Or so it appears."_
+
+The challenge presents us with a minimalist web application. The initial message is simple: "Want some Coffee? Please register to continue..."
+
+It seems like a straightforward user registration flow, but in CTFs, the simplest workflows often hide the most interesting security flaws.
+
+![Dashboard](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/7ru57_155u35/Challenge.png)
+* * *
+
+### 🔍 Stage 1: The Coffee Break (Reconnaissance)
+
+I started by following the application's instructions and proceeded to the **Register** page. I created a standard account with the following credentials:
+
+- **Username:** `0xaskar`
+- **Password:** `0xaskar`
+  
+After registering and logging in, I was greeted with a "Welcome 0xaskar" message and a note saying "Everything looks normal... for now."
+
+![Register Page](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/7ru57_155u35/Register.png)
+
+* * *
+### 🕵️ Stage 2: Decoding the Identity (Cookie Analysis)
+
+To understand how the application handles sessions, I intercepted the request in **Burp Suite**. I noticed a session cookie that looked like a typical **Flask** session or a **JWT**.
+
+I took the cookie to `jwt.io` to inspect its structure. The payload revealed two interesting fields:
+`
+{
+  "is_admin": false,
+  "username": "0xaskar"
+}
+`
+
+The presence of an is_admin flag set to false immediately suggested that privilege escalation was the intended goal.
+
+🔨 Stage 3: Breaking the Seal (Brute-forcing Secret Key)
+
+Since the session was a signed Flask cookie, I couldn't just modify the is_admin flag without the Secret Key. I decided to attempt a brute-force attack on the signing key using flask-unsign and the rockyou.txt wordlist.
+
+bash
+`
+flask-unsign --unsign --cookie 'eyJpc...[snip]...' --wordlist 'rockyou.txt'`
+
+The tool successfully cracked the key: Secret Key: chocolate
+
+🎭 Stage 4: The Masquerade (Session Hijacking)
+
+With the secret key in hand, I could now forge my own session cookie. I used flask-unsign again to sign a new cookie where is_admin was set to True.
+
+bash
+
+`flask-unsign --sign --cookie "{'is_admin': True, 'username': '0xaskar'}" --secret 'chocolate'`
+
+
+I replaced my original session cookie with this newly forged one in the browser's developer tools.
+
+🏆 Stage 5: Capturing the Flag
+
+After updating the cookie, I navigated to the /flag endpoint. The server, now convinced that I was the administrator, granted me access to the hidden treasure.
+
+The Flag: N!ghtM4re{jw7_0r_fl45k_1_d0n7_c4r3!!}
