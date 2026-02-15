@@ -223,7 +223,7 @@ Since the session was a signed Flask cookie, I couldn't just modify the is_admin
 
 ![Bruteforce](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/7ru57%20155u35/Bruteforce.png)
 
-`flask-unsign --unsign --cookie 'eyJpc...[snip]...' --wordlist 'rockyou.txt'`
+`flask-unsign --unsign --cookie 'eyJpc...........' --wordlist 'rockyou.txt'`
 
 The tool successfully cracked the key: Secret Key: `chocolate`
 
