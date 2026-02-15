@@ -86,17 +86,10 @@ I could trick the server into validating the login regardless of the actual pass
 
 ### 🏆 Stage 3: System Access (The Flag)
 
-The moment I hit **Login**, the system's defenses crumbled. The terminal screen flickered to life, granting me full access:
+The moment I hit **Login**, the system's defenses crumbled, granting me full access:
 
 ![Flag](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Bl1nd%20Fa1th/flag.png)
 
-Plaintext
-
-    AUTHENTICATED_SESSION
-    ACCESS GRANTED
-    [ ACTIVE_TERMINAL_SESSION ]
-    > FLAG: N!ghtM4re{5ql_15_n0t_4_8u6_1t5_4_f34tur3!!}
-    SESSION_STATE: STABLE 
 
 **The Flag:** `N!ghtM4re{5ql_15_n0t_4_8u6_1t5_4_f34tur3!!}`
 
