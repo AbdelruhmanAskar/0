@@ -31,7 +31,7 @@ I am a security enthusiast driven by curiosity and the thrill of breaking comple
 ---
 
 ### 🔗 Let's Secure the Web Together
-* **LinkedIn:** ![0xaskar](https://www.linkedin.com/in/abdelrahmanaskar10/)
+* **LinkedIn:** [0xaskar](https://www.linkedin.com/in/abdelrahmanaskar10/)
 * **Discord:** `abdelruhmanaskar`
 * **Email:** `askr10.askr@gmail.com`
 
