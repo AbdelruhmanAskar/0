@@ -151,7 +151,6 @@ The command executed successfully. Even though I didn't see a "Success" message 
 🏆 Stage 4: Capturing the Flag
 Now that the "Reset" condition was satisfied, I went straight for the gold. I requested the flag file again using a simple GET request:
 
-bash
 curl [http://nightmare.offgrayeg.com](http://nightmare.offgrayeg.com):7878/flag
 
 ![Flag](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Soda3/Flag.png)
@@ -224,9 +223,7 @@ Since the session was a signed Flask cookie, I couldn't just modify the is_admin
 
 ![Bruteforce](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/7ru57%20155u35/Bruteforce.png)
 
-bash
-`
-flask-unsign --unsign --cookie 'eyJpc...[snip]...' --wordlist 'rockyou.txt'`
+`flask-unsign --unsign --cookie 'eyJpc...[snip]...' --wordlist 'rockyou.txt'`
 
 The tool successfully cracked the key: Secret Key: `chocolate`
 
@@ -234,8 +231,6 @@ The tool successfully cracked the key: Secret Key: `chocolate`
 🎭 Stage 4: The Masquerade (Session Hijacking)
 
 With the secret key in hand, I could now forge my own session cookie. I used flask-unsign again to sign a new cookie where is_admin was set to True.
-
-bash
 
 `flask-unsign --sign --cookie "{'is_admin': True, 'username': '0xaskar'}" --secret 'chocolate'`
 
