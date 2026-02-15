@@ -118,11 +118,13 @@ Upon entering the challenge, I saw a dashboard with a few options: **Create**, *
 > **Response:** You have to reset the files first!
 
 ![Reset Error](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Soda3/Reset%20Flags.png)
+
 Naturally, I tried to hit the **Reset** button. I intercepted the request in **Burp Suite** to see what was happening under the hood.
 
 * * *
 
 ### 🚧 Stage 2: The Blocked Path (Method Not Allowed)
+
 The application was sending a `POST` request to `/reset`. However, the server responded with a cold:
 `HTTP/1.1 405 METHOD NOT ALLOWED`
 
@@ -136,6 +138,7 @@ The standard `POST` method was disabled for resetting, but the server was still 
 
 ### 🔓 Stage 3: The HEAD Trick (Exploitation)
 A **HEAD** request is identical to a `GET` request, but the server returns only the headers and no body. Sometimes, developers forget to apply the same security restrictions to `HEAD` as they do to `POST` or `GET`.
+
 I decided to bypass the restriction using **cURL** to force a `HEAD` request to the reset endpoint:
 
 curl -X HEAD [http://nightmare.offgrayeg.com](http://nightmare.offgrayeg.com):7878/reset
