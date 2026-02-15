@@ -25,8 +25,6 @@ I am a security enthusiast driven by curiosity and the thrill of breaking comple
 ---
 
 ### 🚩 Authored Challenges & Projects
-I enjoy giving back to the community by creating labs that simulate real-world attacks.
-* **N!ghtM4re CTF:** Authored multiple Web & OSINT challenges (e.g., *Bl1nd Fa1th*, *Askar's Null-Zone*).
 * **Writeups:** I document my journey and methodologies on my [Personal Blog](https://abdelruhmanaskar.github.io/0/).
 
 ---
