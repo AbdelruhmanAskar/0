@@ -7,6 +7,8 @@ tags: [CTF, WEB , Author]
 author_profile: true
 ---
 
+
+
 ## 1. The Big Picture: Internet vs. The Web
 Most people use these terms interchangeably, but in the world of Cyber Security, precision is key.
 
