@@ -23,7 +23,7 @@ This is the basic interaction of the web:
 
 
 
-!(The Client-Server Model)[https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Networking%20%26%20Web%20Fundamentals/licensed-image.jpg]
+![The Client-Server Model](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Networking%20%26%20Web%20Fundamentals/licensed-image.jpg)
 
 
 ---
@@ -61,7 +61,7 @@ To standardize communication, we use layered models.
 | **2** | Data Link | Network Access |
 | **1** | Physical | Network Access |
 
-!(Image comparing the OSI Model and the TCP/IP Model)[https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Networking%20%26%20Web%20Fundamentals/OSI-Model-and-the-TCP-IP-Model.jpg]
+![Image comparing the OSI Model and the TCP/IP Model](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Networking%20%26%20Web%20Fundamentals/OSI-Model-and-the-TCP-IP-Model.jpg)
 
 ---
 
