@@ -1,8 +1,10 @@
-# 🌐 The Ultimate Guide to Networking & Web Fundamentals
-**Author:** 0xaskar  
-**Date:** 2026  
-**Focus:** Internet Architecture, Protocols, and Recon Tools
-
+---
+layout: single
+title: "🌐 The Ultimate Guide to Networking & Web Fundamentals"
+date: 2026-02-28
+categories: [Internet Architecture, Protocols and Recon Tools]
+tags: [CTF, WEB , Author]
+author_profile: true
 ---
 
 ## 1. The Big Picture: Internet vs. The Web
