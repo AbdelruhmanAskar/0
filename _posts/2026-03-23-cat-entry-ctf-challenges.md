@@ -19,7 +19,7 @@ It wasn't easy, but the grind was worth it. Here’s a quick flex of what happen
 
 *   **First Blood 🩸:** Snagged the first solve on **2 OSINT** challenges.
     
-*   **The Welcome Flag Sniper 🎯:** Yeah, I’m that guy. Call me the "Welcome Flag Sniper" because I don't let that easy flag breathe for more than 2 seconds. It's a talent, don't hate! 😂
+*   **The Welcome Flag Sniper 🎯** 
     
 *   **Web Exploitation 🕸️:** Secured **2nd Place** on one Web challenge and **3rd Place** on another.
 
