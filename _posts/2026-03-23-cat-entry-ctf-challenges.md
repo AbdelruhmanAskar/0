@@ -420,3 +420,144 @@ This **CBC News** article gave me the exact name:
 Piece them all together in order: `CATF{F1_F2_F3_F4}`
 
 **Final Flag:** `CATF{Daniel_Wong_David_Mylvaganam_Lenford_Crawford_the_hospital_for_sick_children}`
+
+==============================================
+
+🕵️‍♂️ OSINT Series: Murder 2
+=============================
+
+This was the sequel to the "Murder" challenge, and it was even darker. It tells the story of a man who lived a total lie for 18 years, pretending to be a successful doctor at the **WHO** while he was actually doing nothing. When his lie was about to be exposed, he chose a path of blood.
+
+**Author:** 0x2face
+
+**Points:** 100
+
+![Challenge](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/Murder%202/challenge.png)
+
+* * *
+
+📝 The Challenge Description
+----------------------------
+
+>The man did not live a double life—he lived no life at all.
+
+>For nearly two decades, he moved through the world as someone he was not, wrapped in credentials never earned and a career that existed only in conversation. Each morning, he left home with purpose, only to disappear into hours that belonged to no institution, no colleagues, no reality. To those around him, he was accomplished, respected—untouchable. But beneath that carefully sustained illusion was nothing but silence… and time running out.
+
+>Somewhere near the border between nations, a woman became part of that illusion. She believed in his status, his influence, his promises of opportunity. What began as trust slowly transformed into exploitation, as a large sum of money was handed over under the guise of investment—money that was never returned. The town where she lived, where deception took a more personal form, is where your investigation begins. That location is your first fragment. (xxxxxx-xxxxxxxx)
+
+>But long before everything collapsed, there was a moment—quiet, almost forgettable—where something didn’t quite align. A fall. A witness. A voice that tried to speak before it was silenced. Officially, it was ruled an accident. Unofficially… it left questions unanswered. You are looking for the exact date on which this incident occurred. That is your second fragment. (DD-MM-YYYY)
+
+>Years later, the illusion reached its breaking point.
+
+>What followed was not sudden madness, but something far more controlled. A sequence of actions carried out with disturbing calm—routine masking intent. By morning, everything had changed. Those closest to him, the ones who unknowingly stood closest to the truth, became part of its erasure. Identify the date on which his children were killed. That moment forms your third fragment. (DD-MM-YYYY)
+
+>In the end, the truth surfaced—as it always does.
+
+>A trial dismantled the persona piece by piece, exposing not just the crimes, but the years of fabrication behind them. He was sentenced, imprisoned, and removed from the life he had pretended to live. Yet even within confinement, time continued forward. Eventually, a threshold was reached—the moment he first became eligible to walk free again. That year is your final fragment. (YYYY)
+
+>Piece them together, and the illusion—once so carefully constructed—will collapse into clarity.
+
+>flag format : CATF{Xxxxxx-Xxxxxxxx_DD-MM-YYYY_DD-MM-YYYY_YYYY}
+
+* * *
+
+The description was a chilling summary of a man who "lived no life at all":
+
+*   Pretended to have a career for 20 years.
+    
+*   A woman near the border was scammed for a large sum of money.
+    
+*   A "fall" of a witness that was ruled an accident.
+    
+*   The murder of his children.
+    
+*   The year he became eligible for parole (walk free again).
+    
+* * *
+
+🔍 Step 1: Identifying the "Legendary" Liar
+-------------------------------------------
+
+I started by searching for the most unique part of the story: a man pretending to be a doctor for nearly 20 years and working for the WHO.
+
+**Search Query:** `man pretended to be a doctor for 18 years WHO murder family`
+
+### **The Discovery:**
+
+The search results immediately pointed to **Jean-Claude Romand**.
+
+*   **Reference:** [Wikipedia - Jean-Claude Romand](https://en.wikipedia.org/wiki/Jean-Claude_Romand)
+    
+> From the Wikipedia entry, I confirmed the suspect is **Jean-Claude Romand**, who lied about his career for 18 years.
+
+![doctor](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/Murder%202/doctor.png)
+
+* * *
+
+🧩 Step 2: Extracting the Fragments
+-----------------------------------
+
+Now that the case was confirmed, I used the same Wikipedia source to hunt for the 4 fragments.
+
+### **Fragment 1: The Town near the Border**
+
+The description mentioned a town near the border where he lived and where the deception took place.
+
+*   **Investigation:** Checking his biography on Wikipedia, it was clear where he was based.
+    
+*   **Result:** He lived in **Ferney-Voltaire**, a French town right on the border with Switzerland (near Geneva).
+    
+*   **Format:** `Ferney-Voltaire`
+
+![living](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/Murder%202/living.png)
+    
+* * *
+
+### **Fragment 2: The "Accidental" Fall**
+
+The description mentioned a fall of a witness that was officially ruled an accident.
+
+*   **Investigation:** I looked into the deaths associated with him before the main murders. I found the incident involving his father-in-law.
+    
+*   **Evidence:** _"Jean-Claude Romand was the only witness to the death of his father-in-law, Pierre Crolet, on 23 October 1988."_
+    
+*   **Format:** `23-10-1988`
+
+![father](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/Murder%202/father.png)
+
+* * *
+
+### **Fragment 3: The Day the Children Died**
+
+I needed the exact date his children were killed during the final collapse of his illusion.
+
+*   **Investigation:** According to the timeline of the murders, after killing his wife, he killed his children the next morning.
+    
+*   **Evidence:** Wikipedia confirms the murders of his children (Caroline and Antoine) occurred on **10 January 1993**.
+    
+*   **Format:** `10-01-1993`
+
+![child](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/Murder%202/child.png)
+
+* * *
+
+### **Fragment 4: The Threshold of Freedom (Parole)**
+
+The final piece was the year he first became eligible to walk free (parole eligibility).
+
+*   **Investigation:** I looked at his sentencing details.
+    
+*   **Evidence:** _"On 6 July 1996, Romand was found guilty and sentenced to life imprisonment... he became eligible for parole in 2015."_
+    
+*   **Format:** `2015`
+    
+![parole](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/Murder%202/parole.png)
+
+* * *
+
+🏁 Phase 3: Final Flag Construction
+-----------------------------------
+
+Piece them together as per the format: `CATF{Xxxxxx-Xxxxxxxx_DD-MM-YYYY_DD-MM-YYYY_YYYY}`
+
+**Final Flag:** `CATF{Ferney-Voltaire_23-10-1988_10-01-1993_2015}`
