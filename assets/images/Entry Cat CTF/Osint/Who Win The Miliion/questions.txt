@@ -1,0 +1,109 @@
+question : what is the name of the founder of the onion routing protocol ?
+
+answer format : Fname_Lname
+type your answer : Paul_Syverson
+
+url: https://en.wikipedia.org/wiki/Paul_Syverson
+
+==============================================================
+
+question : what is the real name of the hacker known as “Sabu” who was a leader of lulzsec ?
+
+answer format : Fname_Lname
+type your answer : Hector_Monsegur
+
+url: https://en.wikipedia.org/wiki/Hector_Monsegur#:~:text=Hector%20Xavier%20Monsegur%20(born%201983,of%20the%20hacking%20group%20LulzSec.
+
+===============================================================
+
+question : what is the date facebook announced the breach exposing 50m access tokens ?
+
+answer format : DD-MM-YYYY
+type your answer : 28-09-2018
+
+url: https://www.bbc.com/news/technology-45686890
+
+================================================================
+
+question : what is the real name of the individual known as “the condor” in early phone phreaking history ?
+
+answer format : Fname_Lname
+type your answer : Kevin_Mitnick
+
+url: https://www.latimes.com/archives/la-xpm-1995-02-18-mn-33388-story.html
+
+================================================================
+
+question : what is the date ebay disclosed its 145m user data breach ?
+
+answer format : DD-MM-YYYY
+type your answer : 21-05-2014
+
+url: https://www.washingtonpost.com/news/the-switch/wp/2014/05/21/ebay-asks-145-million-users-to-change-passwords-after-data-breach/
+
+=================================================================
+
+question : what is the date of the data breach of the 500m accounts of yahoo ?
+
+answer format : DD-MM-YYYY
+type your answer : 22-09-2016
+
+url: https://en.wikipedia.org/wiki/Yahoo_data_breaches
+
+================================================================
+
+question : what is the real name of the person arrested in 2023 who was associated with owning and operating breach forums ?
+
+answer format : Fname_Lname
+type your answer : Conor_Fitzpatrick
+
+url: https://www.justice.gov/archives/opa/pr/justice-department-announces-arrest-founder-one-world-s-largest-hacker-forums-and-disruption
+
+================================================================
+
+question : what is the real name of the founder of the silk road dark web marketplace ?
+
+answer format : Fname_Lname
+type your answer : Ross_Ulbricht
+
+url: https://en.wikipedia.org/wiki/Ross_Ulbricht
+
+=================================================================
+
+question : what is the date microsoft disclosed the exchange server hafnium attack ?
+
+answer format : DD-MM-YYYY
+type your answer : 02-03-2021
+
+url: https://blog.talosintelligence.com/threat-advisory-hafnium-and-microsoft/
+
+================================================================
+
+question : what is the name of the founder of wikileaks ?
+
+answer format : Fname_Lname
+type your answer : Julian_Assange
+
+url: https://en.wikipedia.org/wiki/Julian_Assange
+
+=================================================================
+
+question : what is the name of the hacker who created the morris worm in 1988 ?
+
+answer format : Fname_Lname
+type your answer : Robert_Morris
+
+url: https://www.okta.com/identity-101/morris-worm/#:~:text=The%20Morris%20worm%20was%20created,opens%20in%20a%20new%20tab.
+
+=================================================================
+
+question : what is the date linkedin confirmed the massive credential breach ?
+
+answer format : DD-MM-YYYY
+type your answer : 18-05-2016
+
+url: https://www.linkedin.com/help/linkedin/answer/a1338522/notice-of-data-brea%20ch-may-2016?lang=en
+
+================================================================
+
+FLAG : CATF{0S1NT_1S_C00L_1F_U_KN0W_H0W_T0_USE_Y0UR_SE3RCH_SK11LS_W3LL}
