@@ -269,3 +269,153 @@ I selected `1- get the flag` and got the final payload.
 **Flag:** `CATF{0S1NT_1S_C00L_1F_U_KN0W_H0W_T0_USE_Y0UR_SE3RCH_SK11LS_W3LL}`
 
   ![flag](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/Osint/Who%20Win%20The%20Miliion/flag.png)
+
+==============================================
+
+  🕵️‍♂️ OSINT Series: Murder
+===========================
+
+This was the second OSINT challenge I tackled in **CAT CTF 2026**. This one wasn't just about quick searching; it was about **Criminal Profiling** and connecting the dots of a real-life dark story. I had to dive deep into a famous criminal case to extract the fragments needed for the flag.
+
+**Author:** 0x2face
+**Points:** 100
+
+![Challenge](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/Murder/challenge.png)
+
+* * *
+
+📝 The Challenge Description
+----------------------------
+
+>The house stood in unnatural silence that night—its walls still holding the echoes of a life meticulously controlled, suffocatingly perfect. Behind its polished exterior lived a daughter sculpted by expectation, her existence measured in grades, obedience, and illusion. Yet beneath that fragile perfection, something festered—quiet, patient, and irreversible.
+
+>On a cold November evening, the illusion did not crack—it collapsed.
+
+>What followed was not the chaos of madness, but the precision of something long rehearsed. A life built on deception had reached its breaking point, and when reality threatened to expose her carefully woven lies, she chose a darker permanence. Love, forbidden and obsessive, became both her refuge… and her weapon.
+
+>Somewhere in the shadows, a lover—equally entangled in her web—became the first thread you must follow. Find his name, the one she risked everything for, the one who stood behind the curtain of her fabricated life. That is your first fragment. (Fname_Lname)
+
+>But devotion alone could not stain the night with blood. A signal was exchanged—calculated, deliberate. A message reading “VIP Access” was sent not as courtesy, but as confirmation that the front door would be opened from within. Moments later, a call pierced the silence at precisely the right time, drawing her downstairs to fulfill her role. Trace the man who crossed the threshold—the one who answered that signal and stepped inside when the door unlocked. That identity is your second fragment. (Fname_Lname)
+
+>Between desire and execution, however, stood a broker of shadows—a man who hid behind the alias “Homeboy.” But shadows always belong to something real. Beneath that street-born name lies a true identity—one tied directly to the orchestration of what followed. Unmask him. Find the name he was born with, not the one whispered in the dark, and you will claim the third fragment. (Fname_Lname)
+
+>And finally… the lie that helped sustain her illusion long before the night of blood. She spoke of compassion, of purpose—of days spent aiding the vulnerable, walking the halls of a place devoted to healing. But like everything else, this too was a fabrication. Trace this false story to its source, uncover the name of the institution she claimed to serve, and you will obtain the final fragment. (xxx_xxxxxxx_xxx_xxxx_xxxxxxxx)
+
+>Piece them together, and the truth—long buried beneath obedience, deception, and blood—will emerge from the silence.
+
+>Flag format: CATF{Fname_Lname_Fname_Lname_Fname_Lname_xxx_xxxxxxxx_xxx_xxxx_xxxxxxxx}
+* * *
+
+The description was a long, cinematic narrative about a daughter living a "fabricated life," a "cold November evening," and a "broken illusion." It mentioned:
+
+*   A daughter pressured by high expectations.
+    
+*   A forbidden lover.
+    
+*   A signal message: **"VIP Access"**.
+    
+*   An accomplice alias: **"Homeboy"**.
+    
+*   A fake story about volunteering at a specific hospital.
+    
+
+* * *
+
+🔍 Step 1: Identifying the Case (The Core)
+------------------------------------------
+
+The narrative was very specific. I started by searching for the most unique keywords from the description to find the story.
+
+**Search Query:** `"VIP Access" message "Homeboy" "November" daughter murder`
+
+### **The Discovery:**
+
+The search results led me to this link:
+
+*   **Reference:** [Jennifer Pan: The Girl Who Unlocked the Front Door](https://medium.com/crimes-before-midnight/jennifer-pan-the-girl-who-unlocked-the-front-door-for-the-hitmen-1dec62f11c2d)
+
+This confirmed that the story is about **Jennifer Pan**, a Canadian woman who orchestrated a hit on her parents in 2010.
+
+![jennifer](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/Murder/jennifer.png)
+
+* * *
+
+🧩 Step 2: Extracting the Fragments
+-----------------------------------
+
+Now that the target was identified, I had to hunt for the 4 fragments.
+
+### **Fragment 1: The Forbidden Lover**
+
+The challenge asked for the lover she risked everything for.
+
+**Search Query:** `Jennifer Pan boyfriend name`
+
+I found this article:
+
+*   **Reference:** [Jennifer Pan's ex-boyfriend Daniel Wong](https://www.today.com/popculture/tv/jennifer-pan-ex-boyfriend-daniel-wong-rcna148788)
+
+![daniel](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/Murder/daniel.png)
+
+> **Fragment 1:** `Daniel_Wong`
+
+* * *
+
+### **Fragment 2: The Man who Crossed the Threshold**
+
+The description mentioned a "VIP Access" signal and a man who entered when the door unlocked.
+
+**Search Query:** `Jennifer Pan "VIP Access" message hitman name`
+
+This led me to a **TIME** article:
+
+*   **Reference:** [What to know about Jennifer Pan](https://time.com/6965523/6965523/)
+
+The article mentioned her co-conspirators: **Lenford Crawford** and **David Mylvaganam**. Specifically, David was the one associated with the execution of the plan on the ground.
+
+![david](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/Murder/david.png)
+
+> **Fragment 2:** `David_Mylvaganam`
+
+* * *
+
+### **Fragment 3: Unmasking "Homeboy"**
+
+I needed the real name behind the street alias "Homeboy."
+
+**Search Query:** `Jennifer Pan accomplice alias Homeboy real name`
+
+I found this **Yahoo Entertainment** link:
+
+*   **Reference:** [Lenford Crawford found guilty of conspiring](https://www.yahoo.com/entertainment/lenford-crawford-found-guilty-conspiring-190036930.html)
+
+The article confirms that **Lenford Crawford** is indeed "Homeboy."
+
+![lenford](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/Murder/lenford.png)
+
+> **Fragment 3:** `Lenford_Crawford`
+
+* * *
+
+### **Fragment 4: The Fake Institution**
+
+The last part was the name of the hospital she claimed to volunteer at to keep her lie alive.
+
+**Search Query:** `Jennifer Pan fake volunteer hospital`
+
+This **CBC News** article gave me the exact name:
+
+*   **Reference:** [Court orders new murder trial for Jennifer Pan](https://www.cbc.ca/news/canada/toronto/court-orders-new-murder-trial-jennifer-pan-1.7506895)
+
+![hospital](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/Murder/hostiptal.png)
+
+> **Fragment 4:** `the_hospital_for_sick_children`
+
+* * *
+
+🏁 Phase 3: Final Flag Construction
+-----------------------------------
+
+Piece them all together in order: `CATF{F1_F2_F3_F4}`
+
+**Final Flag:** `CATF{Daniel_Wong_David_Mylvaganam_Lenford_Crawford_the_hospital_for_sick_children}`
