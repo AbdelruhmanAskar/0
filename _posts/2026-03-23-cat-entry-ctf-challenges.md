@@ -278,6 +278,7 @@ I selected `1- get the flag` and got the final payload.
 This was the second OSINT challenge I tackled in **CAT CTF 2026**. This one wasn't just about quick searching; it was about **Criminal Profiling** and connecting the dots of a real-life dark story. I had to dive deep into a famous criminal case to extract the fragments needed for the flag.
 
 **Author:** 0x2face
+
 **Points:** 100
 
 ![Challenge](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/Murder/challenge.png)
