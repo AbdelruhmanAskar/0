@@ -199,7 +199,7 @@ Connecting to the server gives us a cool ASCII art intro. I chose option `1` to 
     
 *   **Search:** "Creator of Morris Worm 1988"
     
-*   **Answer:** `Robert_Morris` (Logic 101: The Morris worm was made by Morris 😂)
+*   **Answer:** `Robert_Morris`
     
 *   **Reference:** [Okta Identity 101](https://www.okta.com/identity-101/morris-worm/)
     
