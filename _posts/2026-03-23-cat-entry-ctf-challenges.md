@@ -40,16 +40,14 @@ Below is the full walkthrough of how I hunted down the answers and secured the f
 
 ![challenge](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/Osint/Who%20Win%20The%20Miliion/challenge.png)
 
+**Author:** 0x2face
+
+**Points:** 100
+
 📝 The Challenge Description
 ---
-
-> "Hi there! and welcome to our show 'Who will win the million?'. In our show, your mission is to answer one question to go to the other one. The questions depend on your search skills. You have to finish all 12 questions correctly so a hidden option called 'Get the flag' appears."
-
-> **Host:** 0x2face
  
-> Connection: `nc 178.62.202.60 8080`
-  
-> **Points:** 100
+> `nc 178.62.202.60 8080`
 
 * * *
 
