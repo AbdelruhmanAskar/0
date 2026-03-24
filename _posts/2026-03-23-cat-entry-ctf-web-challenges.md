@@ -29,8 +29,6 @@ Let’s kick off the Web series with a challenge that was literally a "headache"
 🕸️ Web Series: Headache
 ========================
 
-This challenge was a perfect example of how sometimes, as a penetration tester, you can overthink a problem when the solution is hidden in the HTTP basics.
-
 **Author:** 0xdblm  
 **Points:** 100
 
@@ -41,7 +39,8 @@ This challenge was a perfect example of how sometimes, as a penetration tester, 
 📝 The Challenge Description
 ----------------------------
 
-> "Headache"  
+> "Headache"
+
 >  **URL:** `http://167.99.34.2:5000/`
 
 Upon visiting the home page, I was greeted with an "Internal Gateway" message:
@@ -50,7 +49,7 @@ Upon visiting the home page, I was greeted with an "Internal Gateway" message:
     
 *   **Hint:** "Try again with less body."
     
-*   **Options:** Get Flag | Admin Portal.
+*   **Options:**  Get Flag  |  Admin Portal.
 
 ![firstpage](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/Web/Headache/firstpage.png)
     
