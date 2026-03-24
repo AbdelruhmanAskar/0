@@ -411,6 +411,8 @@ if ($file) {
     highlight_file(__FILE__); 
 }`
 
+![code](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/lovephp/code.png)
+
 🔍 Phase 1: Initial Discovery & Failed Attempts
 -----------------------------------------------
 
