@@ -1,10 +1,10 @@
 ---
-layout: single 
-title: "CAT CTF 26: Entry Level WEB Write-ups"  
-date: 2026-03-23  
+layout: single
+title: "CAT CTF 26: Entry Level WEB Write-ups"
+date: 2026-03-23
 categories: [web]
-tags: [CTF, Cybersecurity]  
-author_profile: true  
+tags: [CTF, Cybersecurity]
+author_profile: true
 ---
 
 🏆 CAT CTF 26: Entry Level WEB Write-ups
