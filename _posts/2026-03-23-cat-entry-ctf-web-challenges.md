@@ -60,8 +60,6 @@ Upon visiting the home page, I was greeted with an "Internal Gateway" message:
 
 When I clicked on the **"Get Flag"** button, it redirected me to `/api/flag`. Instead of the flag, I received a cold JSON response:
 
-{"error":"admin_only","message":"Missing elevated authorization context."} 
-
 ![getflag](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/Web/Headache/getflag.png)
 
 🧪 Phase 2: Analyzing the API (Burp Suite)
