@@ -2,7 +2,7 @@
 layout: single
 title: "N!ghtM4re CTF 2026: Web Challenges Writeups"
 date: 2026-02-12
-categories: [Writeups, WEB]
+categories: [web]
 tags: [CTF, WEB , Author]
 author_profile: true
 ---
