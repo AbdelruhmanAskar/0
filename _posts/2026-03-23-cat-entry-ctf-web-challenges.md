@@ -384,10 +384,11 @@ The exploit worked flawlessly. The authentication was bypassed, and I was grante
 
 # 🕸️ Web Series: I love PHP
 
-Welcome back! This challenge was a real treat for PHP lovers (and haters). The title says it all, and the description gave a huge hint: "PHP is a weird way to spell RCE." It started as a simple file inclusion and turned into a full Remote Code Execution (RCE) using a clever trick with the PHP PEAR management tool.
+This challenge was a real treat for PHP lovers (and haters). The title says it all, and the description gave a huge hint: "PHP is a weird way to spell RCE." It started as a simple file inclusion and turned into a full Remote Code Execution (RCE) using a clever trick with the PHP PEAR management tool.
 
-**Author:** 0xdblm  
-**Points:** 464 
+**Author:** marco  
+
+**Points:** 244 
 
 ![challenge](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/lovephp/challenge.png)
 
