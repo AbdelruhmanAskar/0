@@ -7,7 +7,5 @@ main:
     url: /categories/#osint
   - title: "General Articles"
     url: /categories/#general-articles
-  - title: "Other Categories"
-    url: /categories/
   - title: "About"
     url: /about/
