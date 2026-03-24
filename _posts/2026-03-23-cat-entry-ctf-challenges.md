@@ -1,13 +1,13 @@
 ---
 layout: single  
-title: "CAT CTF 26: Entry Level Write-ups"  
+title: "CAT CTF 26: Entry Level OSINT Write-ups"  
 date: 2026-03-23  
-categories: [Writeups, OSINT, Web, Reverse Engineering, Forensics, Crypto, Linux, Network]  
+categories: [Writeups, OSINT]  
 tags: [CTF, Cybersecurity]  
 author_profile: true
 ---
 
-🏆 CAT CTF 26: Entry Level Write-ups
+🏆 CAT CTF 26: Entry Level OSINT Write-ups
 
 What’s up, hackers! 👋
 
