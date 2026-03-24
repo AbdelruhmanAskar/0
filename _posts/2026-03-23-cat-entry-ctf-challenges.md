@@ -2,7 +2,7 @@
 layout: single  
 title: "CAT CTF 26: Entry Level OSINT Write-ups"  
 date: 2026-03-23  
-categories: [Writeups, OSINT]  
+categories: [osint]
 tags: [CTF, Cybersecurity]  
 author_profile: true
 ---
