@@ -2,8 +2,7 @@
 layout: single
 title: "🌐 The Ultimate Guide to Networking & Web Fundamentals"
 date: 2026-02-28
-categories: [Internet Architecture, Protocols and Recon Tools]
-tags: [CTF, WEB , Author]
+categories: [general-articles]
 author_profile: true
 ---
 
