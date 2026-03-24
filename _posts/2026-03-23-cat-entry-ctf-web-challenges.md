@@ -481,3 +481,153 @@ The flag appeared multiple times within the PEAR configuration output:
 > `.../&file=file:/usr/local/lib/php/pearcmd.php&/CATF{TH3_M05T_TH1NG_1_L0V3_AB0UT_PHP_15_TH4T_H0W3V3R_SM4LL_TH3_C0D3_15_Y0U_C4N_ALW4Y5_G3T_4N_RCE}...`
 
 **Final Flag:** `CATF{TH3_M05T_TH1NG_1_L0V3_AB0UT_PHP_15_TH4T_H0W3V3R_SM4LL_TH3_C0D3_15_Y0U_C4N_ALW4Y5_G3T_4N_RCE}`
+
+* * *
+
+=================================================
+
+# 🕸️ Web Series: JSF
+
+**Author:** 0xdblm  
+**Points:** 244  
+
+![challenge](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/jsf/challenge.png)
+
+---
+
+## 📝 The Challenge Description
+
+> "I hate client-side, do you?"
+
+> **URL:** `http://167.99.34.2:5888/`
+
+Upon opening the URL, I was greeted with a "JSF Support Portal." It looked like a standard dashboard showing account overview, open cases, and a workspace status. Everything appeared static—no buttons to click, and no hidden links in plain sight.
+
+![portal](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/jsf/portal.png)
+
+---
+
+## 🔍 Phase 1: Reconnaissance
+
+### 1. The Basics
+
+I checked `/robots.txt` but it was a dead end:
+
+`
+User-agent: *
+Allow: /`
+
+### 2\. Deep Dive into Source Code
+
+I viewed the page source (`Ctrl+U`). At the bottom of the HTML, I noticed an unusual script tag:
+
+![source](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/jsf/source.png)
+
+Navigating to `/legacy-widget.js`, I found a massive wall of symbols: `[][(![]+[])[+!+[]]...`. This is **JSFuck**, an esoteric and educational programming style where JavaScript code is written using only six characters: `[ ] ( ) ! +`.
+
+![jsfcode](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/jsf/jsfcode.png)
+
+💡 Phase 2: Decoding the Madness
+--------------------------------
+
+I took the JSFuck payload to a decoder (like [dcode.fr](https://www.dcode.fr/jsfuck-language)). The decoded logic was eye-opening:
+
+JavaScript
+
+    (function () {
+        var statusEl = document.getElementById("ops-status");
+        // ... UI Updates ...
+        var cookieMatch = document.cookie.match(/(?:^|; )widget_ticket=([^;]+)/);
+        var ticket = cookieMatch ? decodeURIComponent(cookieMatch[1]) : "";
+        
+        window.setTimeout(async function () {
+            try {
+                var response = await window.fetch("/api/legacy-assistant", {
+                    method: "POST",
+                    credentials: "same-origin",
+                    headers: { "X-Widget-Ticket": ticket } // The key!
+                });
+                var payload = await response.json();
+                window.alert(payload.flag);
+            } catch (error) {
+                window.alert("Legacy assistant failed to initialize.");
+            }
+        }, 180);
+    })() 
+
+![jsfdecoder](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/jsf/jsfdecoder.png)
+
+### The Logic Break-down:
+
+1.  The script looks for a cookie named **`widget_ticket`**.
+    
+2.  It sends a **POST** request to the endpoint **`/api/legacy-assistant`**.
+    
+3.  Crucially, it includes a custom header: **`X-Widget-Ticket: [Cookie Value]`**.
+    
+4.  If successful, the flag is returned in the JSON response.
+
+* * *
+
+🏁 Phase 3: The Exploit
+-----------------------
+
+There are two ways to solve this: the "Automated" way via Python, or the "Manual" way via Burp Suite.
+
+### Method A: Python Automation
+
+We can use a script to handle the session, cookies, and headers in one go:
+
+    import requests
+    
+    session = requests.Session()
+    session.get("[http://167.99.34.2:5888/](http://167.99.34.2:5888/)") # Get the cookie
+    ticket = session.cookies.get("widget_ticket")
+    
+    headers = {"X-Widget-Ticket": ticket}
+    api_resp = session.post("[http://167.99.34.2:5888/api/legacy-assistant](http://167.99.34.2:5888/api/legacy-assistant)", headers=headers)
+    
+    print(api_resp.text)
+
+![flag](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/jsf/flag.png)
+
+* * *
+
+### Method B: Manual Exploitation (Burp Suite)
+
+If you prefer manual control or don't want to write code, you can use **Burp Suite**.
+
+#### 🛠️ Key Modifications:
+
+1.  **Change Method:** Change the request from `GET` to `POST`.
+    
+2.  **Add Custom Header:** Add the `X-Widget-Ticket` header with the value from your cookie.
+    
+**The Final Request in Burp Suite:**
+
+    POST /api/legacy-assistant HTTP/1.1
+    Host: 167.99.34.2:5888
+    User-Agent: Mozilla/5.0 (Windows NT 10.0; ...)
+    Cookie: widget_ticket=93ttjUt-U5dOtLAwnon_YMUgbkwBTrbZ; session=eyJ3aWR...
+    X-Widget-Ticket: 93ttjUt-U5dOtLAwnon_YMUgbkwBTrbZ
+    Connection: keep-alive
+    Content-Type: application/x-www-form-urlencoded
+    Content-Length: 0 
+
+**The Response:**
+
+HTTP
+
+    HTTP/1.1 200 OK
+    Content-Type: application/json
+    ...
+    
+    {"flag":"CATF{Y0u_kn3w_th3_0bfusc1710n_S3cr3t}"}
+
+![burp](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/jsf/burp.png)
+
+**Final Flag:** `CATF{Y0u_kn3w_th3_0bfusc1710n_S3cr3t}`
+
+* * *
+
+=================================================
