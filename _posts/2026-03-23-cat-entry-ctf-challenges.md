@@ -13,19 +13,26 @@ What’s up, hackers! 👋
 
 ![Meme](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/meme.jpg)
 
-I’m back with a massive write-up series for **CAT CTF 2026**. This competition was a wild ride, and I’m hyped to announce that I managed to secure **4th Place** overall! 🏆
+I’m back with a write-up series for **CAT CTF 2026**. This competition was a legendary experience for me. Despite playing **SOLO** against some heavy-hitting teams, I managed to fight my way up and secure **4th Place overall**! 🏆
 
-It wasn't easy, but the grind was worth it. Here’s a quick flex of what happened during the event:
+It was a test of endurance, speed, and precision. Playing solo means you are the lead investigator, the web expert, and the forensic analyst all at once. The grind was real, but the result feels even better.
 
-*   **First Blood 🩸:** Snagged the first solve on **2 OSINT** challenges.
+### 🚀 Performance Highlights:
+
+*   **The OSINT Gauntlet:** I cleared **4 out of 5 OSINT challenges**. I was on a roll, but the clock was my only enemy—I simply ran out of time before I could wrap up the final one.
+
+![challenges](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/osint%20challenges.png)
     
-*   **The Welcome Flag Sniper 🎯** 
-    
-*   **Web Exploitation 🕸️:** Secured **2nd Place** on one Web challenge and **3rd Place** on another.
+*   **First Blood 🩸:** I managed to snag the **First Solve** on 2 of those OSINT challenges.
 
-I want to give a huge shout-out to all the authors for these amazing challenges. Whether it was **Reverse, Forensics, Web, Network, Linux, or Crypto**, the quality was top-notch and kept me on the edge of my seat.
+![firstwhowin](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/firstwhowin.png)
 
-Enough talking, let's get into the technical stuff. We’re going to cover everything, but we’ll kick things off with my favorite playground: **OSINT**.
+![firstpark](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/firstpark.png)
+
+
+I want to give a massive shout-out to all the authors for these creative and high-quality challenges. They kept me on the edge of my seat from start to finish.
+
+Enough with the talk—it's time to get technical. We’re going to dive deep into my favorite playground. Let’s start the series with the **OSINT** walkthroughs!
 
 ---
 
@@ -561,3 +568,94 @@ The final piece was the year he first became eligible to walk free (parole eligi
 Piece them together as per the format: `CATF{Xxxxxx-Xxxxxxxx_DD-MM-YYYY_DD-MM-YYYY_YYYY}`
 
 **Final Flag:** `CATF{Ferney-Voltaire_23-10-1988_10-01-1993_2015}`
+
+=================================
+
+🕵️‍♂️ OSINT Series: P-P-PP-Park?
+=================================
+
+This was the fourth OSINT challenge I tackled in **CAT CTF 26**. This one was a pure test of **Visual Forensics** and patience. I was dropped into a massive water park with no context other than a cryptic plea for help.
+
+To solve this, I had to travel halfway across the world digitally, deciphering signs and searching for the exact "sub-park" hidden within a giant amusement complex.
+
+**Author:** ELJoOker
+
+**Points:** 493
+
+![challenge](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/P-P-PP-Park/challenge.png)
+
+* * *
+
+📝 The Challenge Description
+----------------------------
+
+> "Idk where am I, or how did I get here. can you please take me home?"
+
+> **Flag Format:** `CATF{Location_name}`
+
+![challengephoto](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/P-P-PP-Park/challengephoto.png)
+
+* * *
+
+🔍 Step 1: Visual Cues & Initial Reconnaissance
+-----------------------------------------------
+
+The investigation started with a deep analysis of the provided photo. At first glance, it was just a typical, albeit massive, water park. However, looking closely at the background structures and distant signs, I noticed **Chinese characters**.
+
+This was my first major lead: the location had to be in **China**.
+
+**Search Strategy:** I used a **Reverse Image Search** focusing on the most unique architecture in the park (the colorful slides and the castle-like buildings). I added the keyword `China` to refine the results.
+
+![reverse](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/P-P-PP-Park/reverse.png)
+
+**The Discovery:** The search results quickly pointed to a destination called **Royal Ocean World**  located in Shenyang, China.
+
+![firstphoto](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/P-P-PP-Park/firstphoto.png)
+
+> **Investigator's Note:** While I found the main park, the flag required the specific `Location_name`, and Royal Ocean World is an umbrella name for several smaller theme parks.
+
+* * *
+
+🧩 Step 2: Finding the Specific "Fragment"
+------------------------------------------
+
+I needed to find the exact name of the water park section shown in the photo. I spent a long time searching for different angles of the park.
+
+![angel2](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/P-P-PP-Park/angel2.png)
+
+During my search, I found a low-quality photo where I could just barely make out the word **"Hawaii"** on a sign, but the rest of the text was obscured by the angle.
+
+![angel1](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/P-P-PP-Park/angel1.png)
+
+**Refining the Search:** I used a targeted query to confirm the divisions within Royal Ocean World: **Search Query:** `royal ocean world "hawaii"`
+
+I hit gold with this travel guide:
+
+*   **Reference:** [Triphobo - Things to do in Shenyang](https://www.triphobo.com/places/shenyang-china/things-to-do/family-and-kids)
+
+![final](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/P-P-PP-Park/final.png)
+    
+
+> **Evidence:** The site listed the attractions: _"The Royal Ocean World is a themed family park consisting of three exclusive attractions. The **Hawaii Water Park** has rides and water tubes while Narnia and Aquarium boast of fantasy themes."_
+
+* * *
+
+📸 Step 3: Final Confirmation
+-----------------------------
+
+To ensure the flag was formatted correctly, I needed a clear shot of the entrance or the official name used on-site. I found an image archive from a travel site that showed the exact gate of the section.
+
+*   **Reference:** [Royal Ocean World Image Archive](https://fregataero.ru/images/china/shenjan/royal_ocean_world/royal_ocean_world_6.jpg)
+
+![finalphoto](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/P-P-PP-Park/finalphoto.jpg)
+    
+The photo clearly showed the branding for the **Hawaii Water Park**.
+
+* * *
+
+🏁 Phase 3: Final Flag Construction
+-----------------------------------
+
+The challenge asked for the `Location_name` in a specific format. Based on the evidence from the park's internal divisions:
+
+**Final Flag:** `CATF{Hawaii_Water_Park}`
