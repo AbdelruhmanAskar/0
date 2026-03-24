@@ -2,7 +2,7 @@
 layout: single
 title: "N!ghtM4re CTF 2026: OSINT Challenges Writeups"
 date: 2026-02-10
-categories: [Writeups, OSINT]
+categories: [osint]
 tags: [CTF, OSINT, Investigation, CyberCrime, Author]
 author_profile: true
 ---
