@@ -1,9 +1,13 @@
 main:
   - title: "Posts"
     url: /posts/
-  - title: "Categories"
+  - title: "Web"
+    url: /categories/#web
+  - title: "OSINT"
+    url: /categories/#osint
+  - title: "General Articles"
+    url: /categories/#general-articles
+  - title: "Other Categories"
     url: /categories/
-  - title: "Tags"
-    url: /tags/
   - title: "About"
     url: /about/
