@@ -488,7 +488,8 @@ The flag appeared multiple times within the PEAR configuration output:
 
 # 🕸️ Web Series: JSF
 
-**Author:** 0xdblm  
+**Author:** 0xdblm 
+
 **Points:** 244  
 
 ![challenge](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/jsf/challenge.png)
