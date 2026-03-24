@@ -289,3 +289,93 @@ I sent the final crafted payload via Burp Suite to execute the binary:
 ![flag](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/Adminjokes/flag.png)
 
 **Final Flag:** `CATF{Mak0_LF1_2_SSTI_Adm1n_J0k3s_Pwn3d_9f4e2b7c}`
+
+==================================================================
+
+🕸️ Web Series: Easy Injection
+==============================
+
+Moving on to the next Web challenge! As the name implies, "Easy Injection" was a straightforward challenge, This challenge was all about understanding the logic of authentication flows and exploiting improper input sanitization.
+
+**Author:** 0xdblm
+
+**Points:** 100
+
+![challenge](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/easyinjection/challenge.png)
+
+📝 The Challenge Description
+----------------------------
+
+> **URL:** `http://167.99.34.2:5777`
+
+The homepage presented a standard portal with options to Register and Login. Standard users can create accounts, but administrative tools are restricted to staff members with elevated access.
+
+![homepage](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/easyinjection/homepage.png)
+
+🔍 Phase 1: Recon & Standard Access
+-----------------------------------
+
+My first step was to play by the rules to see what a normal user can access. I went to the **Register** page and created a standard account with my signature credentials:
+
+*   **Username:** `0xaskar`
+    
+*   **Password:** `0xaskar`
+
+![create](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/easyinjection/create.png)  
+
+After logging in, I was redirected to the user Dashboard. The dashboard confirmed my standard access and clearly stated:
+
+> **Account Status** User workspace access: active Administrative tools: **restricted**
+
+![0xaskar](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/easyinjection/0xaskar.png)  
+
+There was a link pointing to a separate **"Administrative Login"** screen. That was my actual target.
+
+* * *
+
+💻 Phase 2: The Admin Portal & SQLi
+-----------------------------------
+
+I navigated to the Administrative Login page. It was a restricted area asking for an Admin Username and Password. The placeholder for the username explicitly hinted at `admin`.
+
+**The Vulnerability:** Whenever I see a custom login form, my first instinct is to test for **SQL Injection (SQLi)**. If the backend doesn't sanitize the inputs and directly concatenates them into a SQL query, we can manipulate the logic to bypass the password check entirely.
+
+A typical backend query looks something like this:
+
+SQL
+
+    SELECT * FROM users WHERE username = 'USER_INPUT' AND password = 'PASSWORD_INPUT'; 
+
+* * *
+
+💣 Phase 3: The Exploit (Auth Bypass)
+-------------------------------------
+
+I decided to use a classic SQLi payload in the **Admin Username** field to comment out the rest of the query (specifically, the password verification part).
+
+**The Payload:**
+
+*   **Admin Username:** `admin' --`
+    
+*   **Admin Password:** `0xaskar` _(or literally any random string)_
+
+![payload](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/easyinjection/payload.png)    
+
+**Why it works:** By injecting `admin' --`, the backend query transforms into:
+
+SQL
+
+    SELECT * FROM users WHERE username = 'admin' --' AND password = '0xaskar'; 
+
+The `--` turns the rest of the line into a comment in SQL. The database only executes `SELECT * FROM users WHERE username = 'admin'`, logs me in as the admin, and completely ignores whatever password I typed!
+
+* * *
+
+🏁 Phase 4: Getting the Flag
+----------------------------
+
+The exploit worked flawlessly. The authentication was bypassed, and I was granted access to the **Administration Panel**.
+
+![flag](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/easyinjection/flag.png)    
+
+**Final Flag:** `CATF{E4SY_e4sy_Easy_1nj3c410n}`
