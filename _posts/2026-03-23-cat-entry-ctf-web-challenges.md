@@ -24,7 +24,7 @@ Web challenges are all about understanding how a developer thinks—and then fin
 
 Let’s kick off the Web series with a challenge that was literally a "headache"—until I realized the answer was right in front of me.
 
-===
+* * *
 
 🕸️ Web Series: Headache
 ========================
