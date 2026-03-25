@@ -672,7 +672,7 @@ When I typed `start`, the game presented four routes:
 
 I checked the page source and found a script tag: `<script src="/static/main.js" defer></script>`
 
-![script](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/forestsecrets/script.png)
+![source](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/forestsecrets/source.png)
 
 Navigating to `/static/main.js`, I analyzed the core game logic. The script handles terminal rendering, audio, and, most importantly, the communication with the backend APIs:
 
