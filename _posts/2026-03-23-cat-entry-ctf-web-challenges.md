@@ -196,8 +196,6 @@ By navigating to `/proc/self/cwd/`, which points to the Current Working Director
 
 I extracted the source code. Here is the most critical part of the application logic:
 
-Python
-
     from mako.template import Template
     import os
     
