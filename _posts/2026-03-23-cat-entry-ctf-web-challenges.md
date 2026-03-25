@@ -683,8 +683,6 @@ The game tracks progress via a cookie named `trail_id`.
 🗺️ Phase 2: Mapping the API
 ----------------------------
 
-### 
-
 To understand all possible moves, I intercepted the request to `/api/options` using **Burp Suite**:
 
 **Request:**
