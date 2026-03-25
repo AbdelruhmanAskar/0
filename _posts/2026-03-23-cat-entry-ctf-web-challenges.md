@@ -632,3 +632,203 @@ HTTP
 * * *
 
 =================================================
+
+🕸️ Web Series: Forest Secrets
+
+**Author:** 0xdblm
+
+**Points:** 493
+
+**Solves:** 3 
+
+![challenge](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/forestsecrets/challenge.png)
+
+📝 The Challenge Description
+----------------------------
+
+> "You awaken in the heart of a forest that feels ancient, hostile, and very much alive. Strange voices drift through the trees, unseen eyes follow every movement, and each path seems to lead deeper into something you were never meant to find. If there is a way out, it is buried beneath the forest’s silence."
+
+**URL:** [http://167.99.34.2:5050/](http://167.99.34.2:5050/)
+
+Upon opening the URL, I was greeted with a text-based terminal interface. The atmosphere was dark and mysterious, providing a few lines of lore and a prompt to type `start` to begin the journey.
+
+![start](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/forestsecrets/start.png)
+
+* * *
+
+🔍 Phase 1: Reconnaissance
+--------------------------
+
+### 1\. Initial Interaction
+
+When I typed `start`, the game presented four routes:
+
+*   `HEAD TOWARD THE LANTERN LIGHT`
+    
+*   `CALL INTO THE FOG`
+    
+*   `CLIMB THE WATCHTOWER`
+    
+*   `HIDE BENEATH THE ROOTS`
+
+### 2\. Deep Dive into Source Code
+
+I checked the page source and found a script tag: `<script src="/static/main.js" defer></script>`
+
+![script](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/forestsecrets/script.png)
+
+Navigating to `/static/main.js`, I analyzed the core game logic. The script handles terminal rendering, audio, and, most importantly, the communication with the backend APIs:
+
+*   `GET /api/options`: Fetches the available commands for each stage.
+    
+*   `POST /api/monitor`: Sends the user's command to the server for validation.
+    
+*   `POST /api/reset`: Resets the game state.
+    
+The game tracks progress via a cookie named `trail_id`.
+
+* * *
+
+🗺️ Phase 2: Mapping the API
+----------------------------
+
+### 
+
+To understand all possible moves, I intercepted the request to `/api/options` using **Burp Suite**:
+
+**Request:**
+
+    GET /api/options HTTP/1.1
+    Host: 167.99.34.2:5050
+    ...
+
+**Response:**
+
+    {
+      "allPossibleCommands": {
+        "1": ["HEAD TOWARD THE LANTERN LIGHT", "CALL INTO THE FOG", "CLIMB THE WATCHTOWER", "HIDE BENEATH THE ROOTS"],
+        "2": ["ENTER THE ABANDONED SHRINE", "FOLLOW THE DRIPPING TUNNEL", "KNOCK ON THE STONE DOOR", "TURN BACK"],
+        "3": ["READ THE CARVED TABLET", "SET UP CAMP", "DRINK FROM THE WELL", "RETRACE YOUR STEPS"],
+        "4": ["OPEN THE IRON GATE", "LIGHT A SIGNAL FIRE", "CHASE THE WHISPER", "WAIT FOR DAWN"]
+      },
+      "intro": "The forest is waiting. Four routes stand open before you."
+    }
+
+![getoptions](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/forestsecrets/getoptions.png)
+
+* * *
+
+🛠️ Phase 3: Automated Pathfinding
+----------------------------------
+
+Instead of manual guessing, I wrote a Python script to automate the journey. The script handles the `trail_id` session cookie and iterates through the options until it hits a progression or a "gate".
+
+**0xaskar_forest.py:**
+
+Python
+
+    import requests
+    
+    BASE_URL = "http://167.99.34.2:5050"
+    MONITOR_URL = f"{BASE_URL}/api/monitor"
+    OPTIONS_URL = f"{BASE_URL}/api/options"
+    
+    def find_correct_path():
+        session = requests.Session()
+        requests.post(f"{BASE_URL}/api/reset") # Start fresh
+        
+        options = requests.get(OPTIONS_URL).json().get("allPossibleCommands", {})
+        correct_path = []
+        current_step = "1"
+        
+        while current_step in options:
+            found_next = False
+            for cmd in options[current_step]:
+                resp = session.post(MONITOR_URL, json={"command": cmd})
+                data = resp.json()
+                
+                if data.get("status") == "continue":
+                    next_step = data.get("next_step")
+                    
+                    # Check for the Gate/Loop
+                    if next_step == current_step:
+                        print(f"[!] Hit a gate at Step {current_step} with command: {cmd}")
+                        print(f"[*] Message: {data.get('message')}")
+                        return correct_path + [cmd]
+    
+                    correct_path.append(cmd)
+                    current_step = next_step
+                    found_next = True
+                    break
+        return correct_path
+    
+    if __name__ == "__main__":
+        final_path = find_correct_path()
+    
+
+### Script Output:
+
+![code](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/forestsecrets/code.png)
+
+The script successfully cleared Steps 1, 2, and 3, but hit a "Secret Gate" at Step 4: `"The gate refuses to move... Scratched around the keyhole is a single question: WHAT IS THE SECRET COMMAND?"`
+
+![secret](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/forestsecrets/secret.png)
+
+* * *
+
+🕵️ Phase 4: Finding the Fifth Path
+-----------------------------------
+
+Checking `/robots.txt` revealed a critical hint:
+
+Plaintext
+
+    User-agent: *
+    Allow: /
+    # Old trails answered to more than one method.
+
+![robots](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/forestsecrets/robots.png)
+
+This hinted at using a different **HTTP Method**. I used the `OPTIONS` method on the `/api/options` endpoint while carrying my valid `trail_id` cookie.
+
+**The Exploit Request (Burp Suite):**
+
+    OPTIONS /api/options HTTP/1.1
+    Host: 167.99.34.2:5050
+    Cookie: trail_id=YNIkXNr45po3QsvGQAJgWdZ4rgixMA2x
+    ...
+
+**The Response:**
+
+    HTTP/1.1 204 NO CONTENT
+    Allow: GET, OPTIONS
+    X-Trail-Head: ASK THE FOREST
+    X-Trail-Tail: FOR A FIFTH PATH
+    X-Map-Note: Old methods still answer old trails.
+    Access-Control-Expose-Headers: Allow, X-Trail-Head, X-Trail-Tail, X-Map-Note
+
+![options](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/forestsecrets/options.png)
+
+The custom headers provided the secret command: `ASK THE FOREST FOR A FIFTH PATH`.
+
+* * *
+
+🏁 Phase 5: The Final Exploit
+-----------------------------
+
+I sent the combined secret command as a `POST` request to `/api/monitor`:
+
+**Final Request:**
+
+    POST /api/monitor HTTP/1.1
+    Host: 167.99.34.2:5050
+    Content-Type: application/json
+    Cookie: trail_id=...
+    
+    {"command": "ASK THE FOREST FOR A FIFTH PATH"}
+
+![flag](https://raw.githubusercontent.com/AbdelruhmanAskar/0/refs/heads/master/assets/images/Entry%20Cat%20CTF/forestsecrets/flag.png)
+
+**Final Response:** `"The hidden path opens, and the forest finally lets you leave."`
+
+**Final Flag:** `CATF{4sk1ng_f0r_A_f1f7h_0p710n_1t_4l4w4ys_h3lpful}`
