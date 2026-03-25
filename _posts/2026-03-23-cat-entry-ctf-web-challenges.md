@@ -77,8 +77,6 @@ I intercepted the request to `/api/flag` using **Burp Suite** to see exactly wha
 
 **The Response:**
 
-HTTP
-
     HTTP/1.1 403 FORBIDDEN
     Server: Werkzeug/2.3.0 Python/3.11.15
     Content-Type: application/json
@@ -235,8 +233,6 @@ From the source code, two things were immediately obvious:
 I navigated to the hidden endpoint and tested a basic Mako SSTI payload: `GET admin/profile?name=${7*7}`
 
 **The Response:**
-
-HTTP
 
     HTTP/1.1 200 OK
     Admin Profile 
@@ -612,8 +608,6 @@ If you prefer manual control or don't want to write code, you can use **Burp Sui
     Content-Length: 0 
 
 **The Response:**
-
-HTTP
 
     HTTP/1.1 200 OK
     Content-Type: application/json
