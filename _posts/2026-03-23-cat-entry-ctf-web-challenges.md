@@ -103,15 +103,11 @@ If the developer implemented the "Admin Only" check only for `GET` and `POST` me
 
 **The Attack:** I changed the request method from `GET` to `HEAD` in Burp Repeater.
 
-HTTP
-
     HEAD /api/flag HTTP/1.1
     Host: 167.99.34.2:5000
     ... 
 
 **The Response:**
-
-HTTP
 
     HTTP/1.1 200 OK
     Server: Werkzeug/2.3.0 Python/3.11.15
@@ -630,11 +626,11 @@ HTTP
 **Final Flag:** `CATF{Y0u_kn3w_th3_0bfusc1710n_S3cr3t}`
 
 * * *
-
-=================================================
  
+==========================================================
 
-### 🕸️Web Series: Forest Secrets
+🕸️Web Series: Forest Secrets
+=========================== 
 
 **Author:** 0xdblm
 
